@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo01</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var phonecatApp1 = angular.module('phonecatApp11', []);
+
+// Define the `PhoneListController` controller on the `phonecatApp` module
+phonecatApp1.controller('PhoneListController', function PhoneListController($scope) {
+  $scope.phones = [
+    {
+      name: 'Nexus S',
+      snippet: 'Fast just got faster with Nexus S.'
+    }, {
+      name: 'Motorola XOOM™ with Wi-Fi',
+      snippet: 'The Next, Next Generation tablet.'
+    }, {
+      name: 'MOTOROLA XOOM™',
+      snippet: 'The Next, Next Generation tablet.'
+    }
+  ];
+}
+
+);
+</script>
+
+</head>
+<body ng-app="phonecatApp11">
+    <div ng-app ng-init="num='1';price='1'">
+    	<p>数量：<input type="number" ng-model="num"></p>
+    	<p>价格：<input type="number" ng-model="price"></p>
+    	<h2>HELLO {{num * price}}</h2>
+    	<h2>总价：<span ng-bind="num * price"></span></h2>
+    </div>
+	
+	<p>1 + 2 = {{1 + 2}}</p>
+	
+	<div>
+		<ul ng-controller="PhoneListController">
+			<!-- <li>
+				<span>Nexus S</span>
+				<p>
+				Fast just got faster with Nexus S.
+				</p>
+			</li>
+			<li>
+				<span>Motorola XOOM™ with Wi-Fi</span>
+				<p>
+				The Next, Next Generation tablet.
+				</p>
+			</li> -->
+			<li ng-repeat="phone in phones">
+				<span>{{phone.name}}</span>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
