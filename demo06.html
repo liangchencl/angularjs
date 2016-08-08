@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo06</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+// 注意：要在服务器环境下运行才可以看到效果
+// 要在服务器环境下面运行，跨域问题不知道怎么解决
+// 这里是没有跨域的，json文件跟html文件是在同一个服务器下面，
+app.controller('aaa', function aaa($scope,$http) {
+	$scope.city = "武汉市";
+	var url="json/1470647567828.json";
+
+   $http.get(url).success( function(response) {
+	   $scope.students = response; 
+	});
+
+});
+
+</script>
+
+<!-- 
+currency 格式化  默认的是美元符号 $
+ -->
+
+</head>
+<body ng-app="myapp">
+	<div ng-controller="aaa">
+		<p><input type="text" ng-model="city"></p>
+		<p>{{students.level}}</p>
+	</div>
+
+</body>
+</html>
