@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo06</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope,$http) {
+	var url="json/1470723286621.json";
+
+   $http.get(url).success( function(response) {
+		$scope.students = response; 
+		var data = response.refundList;
+		var maxInvest = null;
+		for(var i=0,length=data.length;i<length;i++){
+				var invest = data[i];
+			if(maxInvest==null){
+				maxInvest = invest;
+			}else{
+				if(parseInt(invest.money) > parseInt(maxInvest.money)){
+					maxInvest = invest;
+				}
+			}
+		}
+		$scope.max = maxInvest;
+	});
+   			
+});
+</script>
+
+<!-- 筛选出 refundList 里面 钱数最大的那个人的信息 -->
+</head>
+<body ng-app="myapp">
+	<div ng-controller="aaa">
+		<p>{{max.money}}</p>
+		<p>{{max.name}}</p>
+		<p>{{max.sn}}</p>
+	</div>
+
+</body>
+</html>

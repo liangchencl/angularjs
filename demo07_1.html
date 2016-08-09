@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo06</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope,$http) {
+	$scope.city = "武汉市";
+	var url="json/1470723286621.json";
+
+   $http.get(url).success( function(response) {
+		$scope.students = response; 
+		$scope.data = response.refundList;
+	   });
+
+});
+
+</script>
+
+
+</head>
+<body ng-app="myapp">
+	<div ng-controller="aaa">
+		<p><input type="text" ng-model="city"></p>
+		<p>{{students.state}}</p>
+		<hr/>
+		<!-- 筛选出refundList 里面 sn = 1011606270703100000047 的这个人的信息功能 -->
+		<div ng-repeat="d in data | filter:{'sn':'1011606270703100000047'}">
+			<p>{{d.name}}</p>
+		</div>
+		<hr/>
+
+		<!-- 输出refundList 里面所有人的名字 -->
+		<div ng-repeat="d in data">
+			<p>{{d.name}}</p>
+		</div>
+	</div>
+
+</body>
+</html>
