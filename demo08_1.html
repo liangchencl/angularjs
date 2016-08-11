@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo08_1</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+	.hi {width: 500px;border: 1px solid #ccc;padding: 10px;}
+	.title {background: #000000;color: #fff;border: 1px solid #000;}
+</style>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+	app.directive("hello",function(){
+		return {
+			restrict : "E",
+			template : "<div>自定义指令！<span ng-transclude></span></div>",
+			transclude : true,
+//			如果加上 replace:true 这个的话 html里面的hello标签就会被会略掉，浏览器是不认识这个标签的，但是并没有报错
+//			如果不加这个标签，则 html里面的 hello是会显示出来的，
+			replace:true
+		}
+	});
+
+	app.directive("hi",function(){
+		return {
+			restrict : "E",
+			replace : true,
+			transclude : true,
+			template : '<div>'
+						+'<div class="title" ng-click="toggle()">{{title}}</div>'
+						+'<div class="body" ng-show="showMe" >{{text}}</div>'
+						+'</div>',
+			link : function(ceshi){
+				ceshi.showMe = true;
+				ceshi.toggle = function toggle(){
+					ceshi.showMe = !ceshi.showMe;
+				}
+			}
+		}
+	})
+
+	app.controller("demohi",function($scope){
+		$scope.title = "点击展开！";
+		$scope.text = "这里是内容。";
+	})
+</script>
+
+</head>
+<body ng-app="myapp">
+	<hello>
+		<br/>
+		<span>原始的内容，</span><br/>
+		<span>还会在这里。</span>
+	</hello>
+
+	<div ng-controller = "demohi" class="hi">
+		<hi></hi>
+	</div>
+</body>
+</html>

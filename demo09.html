@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo09</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+// 下面两种方法都可以
+app.controller('aaa', function aaa($scope,$http) {
+	$scope.number = 20;
+	$scope.even = function(value){
+		if(value % 2 == 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+});
+
+</script>
+
+<!-- 
+currency 格式化  默认的是美元符号 $
+ -->
+
+</head>
+<body ng-app="myapp">
+	<div ng-controller="aaa">
+		<p>数字：<input type="number" ng-model= "number"></p>
+		<div ng-show = "even(number)">
+			<h2>The number is even</h2>
+		</div>
+		<div ng-show = "!even(number)">
+			<h2>The number is odd</h2>
+		</div>
+	</div>
+
+	<h2>显示：<input type="checkbox" ng-model="myvar"></h2>
+	<div ng-show="myvar">
+		<h3>欢迎！</h3>
+	</div>
+
+	<button ng-click="count=count+1" ng-init="count=0">+</button>
+	<p>你点击了：{{count}} 次</p>
+</body>
+</html>

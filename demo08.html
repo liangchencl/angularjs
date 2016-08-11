@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo08</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+	app.directive("demoDirective",function(){
+		return {
+			template : "<h2>自定义指令！</h2>"
+		}
+	});
+	app.directive("demooDirective",function(){
+		return {
+			restrict : "C",
+			template : "<h4>自定义指令！</h4>"
+		}
+	});
+	app.directive("demoaDirective",function(){
+		return {
+			restrict : "M",
+			replace : true,
+			template : "<h4>自定义指令！</h4>"
+		}
+	});
+</script>
+
+</head>
+<body ng-app="myapp">
+	<demo-directive></demo-directive>
+	<div demo-directive></div>
+
+	<p>如果没有添加 restrict : "M" 则下面的是调用不出来的，并且还要给 replace true  </p>
+	<!-- directive: demoa-directive -->
+
+
+	<p><strong>注意：</strong>只有给了 restrict 属性为 C 的时候才可以用 class="demoo-directive" 调用</p>
+	<div class="demoo-directive"></div>
+	<br />
+	<p><strong>restrict 属性</strong></p>
+	<p>E 只限元素名使用</p>
+	<p>A 只限属性使用</p>
+	<p>C 只限类名使用</p>
+	<p>M 只限注释使用</p>
+
+
+
+
+</body>
+</html>
