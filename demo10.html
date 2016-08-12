@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo07</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+// console.log(1468575000 - 16*24*3600*1000)
+app.controller('aaa', function aaa($scope,$http) {
+	var url="json/20160811.json";
+
+	$scope.getData = function(chuo){
+		var day = parseInt(chuo/1000/3600/24);
+		var hour = parseInt((chuo - day*24*3600*1000)/1000/3600);
+		var minutes = parseInt((chuo - day*24*3600*1000 - hour*3600*1000)/1000/60);
+		return day + "天" + hour + "小时" + minutes + "分";
+	}
+
+	$scope.cheng = function(reward,rate){
+		return reward * rate;
+	}
+
+   $http.get(url).success( function(response) {
+		$scope.students = response.state;
+		$scope.data = response.rows;
+		$scope.today = new Date;
+	});
+});
+</script>
+
+<!-- 
+防止页面刚刚打开的时候出现{{}} 
+第一种办法： 在ng-app的后面添加 ng-cloak
+第二种办法：用一个标签（例如span）添加 ng-bind来代替 {{}}
+
+
+ng-cloak 指令用于在 AngularJS 应用在加载时防止 AngularJS 代码未加载完而出现的问题。
+
+AngularJS 应用在加载时，文档可能会由于AngularJS 代码未加载完而出现显示 AngularJS 代码，进而会有闪烁的效果， ng-cloak 指令是为了防止该问题的发生。
+
+ -->
+</head>
+<body ng-app="myapp" ng-cloak>
+	<div ng-controller="aaa">
+		<p ng-repeat = "x in data"><span ng-bind="x.reward * x.rate"> </span></p>
+		<p ng-repeat = "x in data">{{cheng(x.reward,x.rate)}}</p>
+		<hr/>
+		<p ng-repeat = "x in data">{{getData(x.stime) }}</p>
+		<hr/>
+		<p>{{today | date:'yyyy-MM-dd HH:mm:ss'}}</p>
+	</div>
+	
+</body>
+</html>
