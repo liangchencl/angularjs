@@ -47,6 +47,8 @@ AngularJS 应用在加载时，文档可能会由于AngularJS 代码未加载完
 </head>
 <body ng-app="myapp" ng-cloak>
 	<div ng-controller="aaa">
+		<p><span ng-bind="students"></span></p>
+		<hr/>
 		<p ng-repeat = "x in data"><span ng-bind="x.reward * x.rate"> </span></p>
 		<p ng-repeat = "x in data">{{cheng(x.reward,x.rate)}}</p>
 		<hr/>
