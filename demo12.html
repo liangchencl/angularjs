@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo12</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+// angular-bind()  改 this 指向  跟jquery里面的$.proxy()类似
+var app = angular.module("myApp1",[]);
+app.controller("aaa",function($scope){
+	$scope.name = "hello";
+});
+
+
+</script>
+
+</head>
+<body>
+<div ng-app="myApp1">
+	<div ng-controller="aaa">
+		{{name}}
+	</div>
+</div>
+</body>
+</html>

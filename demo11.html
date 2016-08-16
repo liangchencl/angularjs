@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo11</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+// 模块的写法
+// 可能有很多模块，这时候要指定是哪个模块  ng-app = "myApp1" ……
+var app1 = angular.module("myApp1",[]);
+var app2 = angular.module("myApp2",[]);
+var app3 = angular.module("myApp3",[]);
+var app4 = angular.module("myApp4",[]);
+var app5 = angular.module("myApp5",[]);
+
+// 写法一
+// 如果下面代码要压缩，则会出现问题，因为function($scope)里面的$scope会被简化。
+// app1.controller("aaa",function($scope){
+// 	$scope.name = "hello aaa !";
+// });
+// app1.controller("bbb",function($scope){
+// 	$scope.name = "hi bbb !";
+// });
+// 上面代码压缩之后：
+// app1.controller("aaa",function(a){a.name="hello aaa !"});app1.controller("bbb",function(a){a.name="hi bbb !"});
+// 会报错
+
+
+// 写法二
+// 如果代码要压缩，则可以改成下面的方法，然后进行压缩。就不会出现问题
+// app1.controller("aaa",['$scope',function($s){
+// 	$s.name = "hello aaa !";
+// }]);
+// app1.controller("bbb",['$scope',function($s){
+// 	$s.name = "hi bbb !";
+// }]);
+// 以上代码压缩之后：
+app1.controller("aaa",["$scope",function(a){a.name="hello aaa !"}]);app1.controller("bbb",["$scope",function(a){a.name="hi bbb !"}]);
+// 可以运行 没有报错
+
+
+// 所以一般建议第二种写法，这样在压缩的时候不会出现问题
+
+</script>
+
+</head>
+<body>
+<div ng-app="myApp1">
+	<div ng-controller="aaa">
+		{{name}}
+	</div>
+	<div ng-controller="bbb">
+		{{name}}
+	</div>
+</div>
+</body>
+</html>
