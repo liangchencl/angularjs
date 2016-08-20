@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo13</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+
+</head>
+<body>
+<style>
+* {margin: 0;padding: 0;}
+ul,li{list-style: none;}
+a {text-decoration: none;}
+    .swt_right {position: fixed;top: 30%;right: 0;z-index: 99999;}
+    .swt_right ul li .swt_right_list {height: 65px;width: 65px;color: #fff;border-radius: 6px;text-align: center;margin-top: 8px;}
+    .swt_right ul li .swt_right_list img {margin-top: 5px;}
+    .swt_right ul li .swt_right_list p {font-size: 13px;}
+    .swt_right ul li .swt_right_list01 {background: #f55d22;}
+    .swt_right ul li .swt_right_list02 {background: #8d8d8d;}
+    .swt_right ul li:hover .swt_right_list02 {background: #50b0e1;}
+
+    .counter_bg {position: fixed;z-index: 999999;left: 0;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.5);}
+    .counter {width: 370px;background: #fff;position: absolute;left: 50%;top: 25%;border-radius: 6px;margin-left: -185px;}
+    .counter_title {overflow: hidden;cursor: pointer;border-top-left-radius: 6px;}
+    .counter .counter_close {position: absolute;right: -5px;top: -5px;z-index: 999;cursor: pointer;}
+    .counter_title span {display: inline-block;width: 50%;float: left;text-align: center;font-size: 18px;line-height: 2.4em;padding-bottom: 5px;}
+    .counter_title span.active {background: #3cb4f9;color: #fff;}
+
+    .counter_con_left {display: inline-block;width: 100px;float: left;font-size: 16px;}
+    .counter_con0 ul {margin-top: 30px;}
+    .counter_con0 li {margin-top: 15px;line-height: 36px;margin-left: 25px;color: #878787;}
+    .counter_con0 li .form-control {border:1px solid #dedede;padding:8px 12px;border-radius: 4px;width: 160px;margin-right: 8px;font-size: 16px;}
+    .counter_con0 li select.form-control {width: 184px;color: #878787;}
+    .counter_con0 h4 {text-align: center;font-size: 16px;color: #878787;font-weight: normal;margin-top: 20px;}
+    .counter_con0 h4 span {font-size: 20px;color: #f55d22;}
+    .counter_con0 p {text-align: center;margin-top: 20px;margin-bottom: 30px;}
+    .counter_con0 p button.btn {background: #3cb4f9;font-size: 20px;color: #fff;padding: 8px 35px;border-radius: 6px;margin: 0 auto;}
+
+    .counter_con {position: relative;}
+    .counter_con0{position:absolute;width:100%;background:#fff;border-bottom-left-radius:6px;top:-5px;border-bottom-right-radius:6px;border-top: 1px solid #dedede;}
+
+/*滚动条样式*/
+/*body::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);border-radius:10px;background-color:#F5F5F5;}
+body::-webkit-scrollbar{width:12px;background-color:#F5F5F5;}
+body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,.3);background-color:#4aafe2;}*/
+</style>
+
+<div class="swt_right">
+    <ul>
+        <li>
+            <a href="/phyt/activity_list.shtml" target="_blank">
+                <div class="swt_right_list swt_right_list01" style="">
+                    <img src="images/swt_01.png" alt="">
+                    <p>活动专区</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODAzMDQzNl8zMDM0NDhfNDAwODg4OTc4N18yXw" target="_blank">
+                <div class="swt_right_list swt_right_list02" style="">
+                    <img src="images/swt_02.png" alt="">
+                    <p>在线客服</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=9674090395e4825158d981f8bb875904c023dbed2c3829039d0121a8a50a4be8">
+            
+                <div class="swt_right_list swt_right_list02" style="">
+                    <img src="images/swt_03.png" alt="">
+                    <p>QQ交流群</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <div class="swt_right_list swt_right_list02" style="">
+                    <img src="images/swt_04.png" alt="">
+                    <p>手机APP</p>
+                </div>
+            </a>
+        </li>
+        <li class="earnings_count">
+            <a href="javascript:;">
+                <div class="swt_right_list swt_right_list02" style="">
+                    <img src="images/swt_05.png" alt="">
+                    <p>收益计算</p>
+                </div>
+            </a>
+        </li>
+        <li class="totop" style="display: none;">
+            <a href="javascript:;">
+                <div class="swt_right_list swt_right_list02" style="">
+                    <img src="images/swt_06.png" alt="">
+                    <p>返回顶部</p>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="counter_bg" style="display: block;" ng-app="myApp">
+    <div class="counter" ng-controller="jifen">
+        <div class="counter_title">
+            <span class="active" ng-class="{true: 'active', false: ''}[isShow]"  ng-click="tabClick(0)">积分计算</span>
+            <span ng-class="{true: '', false: 'active'}[isShow]"  ng-click="tabClick(1)">收益计算</span>
+        </div>
+        <div class="counter_con">
+
+            <div class="counter_con0 counter_con01"  ng-show="isShow">
+                <ul>
+                    <li>
+                        <span class="counter_con_left">投标金额：</span>
+                        <span class="counter_con_right">
+                            <input type="text" class="form-control money_send" ng-model="engineer.money_send">元
+                        </span>
+                    </li>
+                    <li>
+                        <span class="counter_con_left">投标期限：</span>
+                        <span class="counter_con_right">
+                            <input type="text" class="form-control money_date" ng-model= "engineer.money_date">
+                        </span>
+                    </li>
+                    <li>
+                        <span class="counter_con_left">VIP 等级：</span>
+                        <span class="counter_con_right">
+                            <select ng-model="engineer.currentActivity" class="form-control" ng-options="a.name for a in activities"></select>
+                        </span>
+                    </li>
+                </ul>
+                <h4>到期可得：<span>{{selected}}</span> 积分</h4>
+                <p class="counter_con01_btn"><button class="btn" ng-click="credits()">开始计算</button></p>
+            </div>
+
+            <div class="counter_con0 counter_con02" ng-show="!isShow">
+                <ul>
+                    <li>
+                        <span class="counter_con_left">投标金额：</span>
+                        <span class="counter_con_right">
+                            <input type="text" class="form-control s_money" ng-model="engineer1.s_money">元
+                        </span>
+                    </li>
+                    <li>
+                        <span class="counter_con_left">年化收益：</span>
+                        <span class="counter_con_right">
+                            <input type="text" class="form-control s_rate" ng-model="engineer1.s_rate">%
+                        </span>
+                    </li>
+
+                    <li>
+                        <span class="counter_con_left">投资期限：</span>
+                        <span class="counter_con_right">
+                            <input type="text" class="form-control s_time" ng-model="engineer1.s_time"><i style="font-style: normal;">{{month_date}}</i>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="counter_con_left">投资类型：</span>
+                        <span class="counter_con_right">
+                            <label><input type="radio" name="shouyi" value="s_month" checked="checked" ng-click="month()"> 月标</label>
+                            <label><input type="radio" name="shouyi" value="s_date" style="margin-left: 20px;" ng-click="date()"> 天标</label>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="counter_con_left">还款方式：</span>
+                        <span class="counter_con_right">
+                            <select class="form-control s_way" ng-model="engineer1.currentActivity" ng-options="a.name for a in way">
+                            </select>
+                        </span>
+                    </li>
+                </ul>
+                <h4>本息合计：<span>{{all}}</span> 元</h4>
+                <p class="counter_con02_btn"><button class="btn" ng-click="all_money()">开始计算</button></p>
+            </div>
+        </div>
+        <img src="images/counter_close.png" alt="" class="counter_close">
+    </div>
+</div>
+
+<script type="text/javascript">
+    var myModule = angular.module("myApp",[]);
+    function computeNum(num1,num2,num3){
+        return parseFloat(num1 + num1 * num2 / 100 / 12 * num3);
+    }
+    myModule.controller("jifen",["$scope",function($scope){
+        $scope.init=function(){
+            $scope.isShow = true;
+            $scope.selected = 0;
+            $scope.activities =
+            [
+                {name:"普通用户",num : 1},
+                {name:"VIP 1",num : 1.1},
+                {name:"VIP 2",num : 1.1},
+                {name:"VIP 3",num : 1.2},
+                {name:"VIP 4",num : 1.2},
+                {name:"VIP 5",num : 1.3},
+                {name:"VIP 6",num : 1.3},
+                {name:"VIP 7",num : 1.4},
+                {name:"VIP 8",num : 1.4},
+                {name:"VIP 9",num : 1.5}
+           ];
+           $scope.engineer = {
+            currentActivity: $scope.activities[0],
+            money_send : 100,
+            money_date : 1
+            };
+        }
+        $scope.init();
+        $scope.credits = function(){
+            $scope.selected = parseInt($scope.engineer.currentActivity.num * 0.25 * $scope.engineer.money_send * $scope.engineer.money_date);
+       };
+
+       $scope.default = function(){
+            $scope.proType = 0;
+            $scope.month_date = "月" ;
+            $scope.all = 0;
+            $scope.way =
+            [
+                {name:"按月付息",num : 1},
+                {name:"到期一次性",num : 1}
+           ];
+           $scope.engineer1 = {
+            currentActivity: $scope.way[0],
+            s_money : 100,
+            s_rate : 12,
+            s_time : 1
+            };
+        }
+        $scope.default();
+        
+        $scope.month = function(){
+            $scope.month_date = "月";
+            $scope.proType = 0;
+       };
+       $scope.date = function(){
+            $scope.month_date = "天";
+            $scope.proType = 1;
+       };
+       $scope.all_money =function(){
+            var temp;
+            if($scope.proType==0){
+                temp = $scope.engineer1.s_time
+            }else{
+                temp = $scope.engineer1.s_time/30;
+            }
+            $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,temp);
+       } 
+       // $scope.all_money =function(){
+       //      $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,$scope.engineer1.s_time);
+       //  };
+        $scope.tabClick = function(n){
+            if(n == 0){
+                $scope.isShow = true;
+            }else{
+               $scope.isShow = false; 
+            }
+        }
+
+    }]);
+
+</script>
+
+<script>
+    $(function(){
+        
+        $(window).scroll(function(){
+            var top = $(window).scrollTop();
+            if(top > 100){
+                $(".totop").fadeIn();
+            }else{
+                $(".totop").fadeOut();
+            }
+        })
+        $(".totop").click(function(){
+            $("body").animate({scrollTop:"0"},600)
+        });
+        $(".earnings_count").click(function(){
+            $(".counter_bg").show();
+        });
+
+
+        $(".counter_close").click(function(){
+            $(".counter_bg").hide();
+        });
+    })
+</script>
+</body>
+</html>
