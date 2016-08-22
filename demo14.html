@@ -78,7 +78,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
             </a>
         </li>
         <li>
-            <a href="javascript:;">
+            <a href="/phyt/action/download/index.shtml" target="_blank">
                 <div class="swt_right_list swt_right_list02" style="">
                     <img src="images/swt_04.png" alt="">
                     <p>手机APP</p>
@@ -183,7 +183,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
 <script type="text/javascript">
     var myModule = angular.module("myApp",[]);
     function computeNum(num1,num2,num3){
-        return parseFloat(num1 + num1 * num2 / 100 / 12 * num3);
+        return parseFloat(parseInt(num1) + parseInt(num1 * num2 / 100 / 12 * num3));
     }
     myModule.controller("jifen",["$scope",function($scope){
         $scope.init=function(){
