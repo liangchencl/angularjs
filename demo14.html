@@ -233,14 +233,15 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
         
         $scope.month = function(){
             $scope.month_date = "月";
-            $scope.proType = 0;
+            // $scope.proType = 0;
        };
        $scope.date = function(){
             $scope.month_date = "天";
-            $scope.proType = 1;
+            // $scope.proType = 1;
        };
        $scope.all_money =function(){
             var temp;
+            // 这里也可以判断 $scope.proType 
             if($scope.month_date=="月"){
                 temp = $scope.engineer1.s_time
             }else{
@@ -248,9 +249,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
             }
             $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,temp);
        } 
-       // $scope.all_money =function(){
-       //      $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,$scope.engineer1.s_time);
-       //  };
+
         $scope.tabClick = function(n){
             if(n == 0){
                 $scope.isShow = true;
@@ -260,10 +259,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
         }
 
     }]);
-    
-    myModule.controller("shouyi",["$scope",function($scope){
-        
-    }]);
+
 </script>
 
 <script>
