@@ -183,7 +183,6 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
                     <h4>到期可得：<span>{{selected}}</span> 积分</h4>
                     <p class="counter_con01_btn"><button class="btn" ng-click="credits()">开始计算</button></p>
                 </div>
-                
             </form>
         </div>
         <img src="images/counter_close.png" alt="" class="counter_close">
@@ -258,7 +257,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
                 temp = $scope.engineer1.s_time/30;
             }
             $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,temp);
-       } 
+       };
 
         $scope.tabClick = function(n){
             if(n == 0){
@@ -266,7 +265,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
             }else{
                $scope.isShow = false; 
             }
-        }
+        };
 
     }]);
 
