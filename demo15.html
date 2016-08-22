@@ -108,39 +108,13 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
 <div class="counter_bg" style="display: none;" ng-app="myApp">
     <div class="counter" ng-controller="jifen">
         <div class="counter_title">
-            <span class="active" ng-class="{true: 'active', false: ''}[isShow]"  ng-click="tabClick(0)">积分计算</span>
-            <span ng-class="{true: '', false: 'active'}[isShow]"  ng-click="tabClick(1)">收益计算</span>
+            <span ng-class="{true: 'active', false: ''}[isShow]" ng-click="tabClick(0)">收益计算</span>
+            <span ng-class="{true: '', false: 'active'}[isShow]" ng-click="tabClick(1)">积分计算</span>
         </div>
         <div class="counter_con">
             <form name="form" novalidate="novalidate">
-                <div class="counter_con0 counter_con01"  ng-show="isShow">
-                    <ul>
-                        <li>
-                            <span class="counter_con_left">投标金额：</span>
-                            <span class="counter_con_right">
-                                <input type="text" class="form-control money_send" ng-model="engineer.money_send" name="smoney" ng-pattern="/^\d+$/">元
-                            </span>
-                            <span class="error" ng-show="form.$dirty && form.smoney.$invalid">请输入投资金额，只能是100的整数倍</span>
-                        </li>
-                        <li>
-                            <span class="counter_con_left">投标期限：</span>
-                            <span class="counter_con_right">
-                                <input type="text" name="number" class="form-control money_date" ng-model= "engineer.money_date" ng-pattern="/^\d+$/">月<br/>                                
-                            </span>
-                            <span class="error" ng-show="form.$dirty && form.number.$invalid">请输入投标期限，只能大于0的数字</span>
-                        </li>
-                        <li>
-                            <span class="counter_con_left">VIP 等级：</span>
-                            <span class="counter_con_right">
-                                <select ng-model="engineer.currentActivity" class="form-control" ng-options="a.name for a in activities"></select>
-                            </span>
-                        </li>
-                    </ul>
-                    <h4>到期可得：<span>{{selected}}</span> 积分</h4>
-                    <p class="counter_con01_btn"><button class="btn" ng-click="credits()">开始计算</button></p>
-                </div>
 
-                <div class="counter_con0 counter_con02" ng-show="!isShow">
+                <div class="counter_con0 counter_con02" ng-show="isShow">
                     <ul>
                         <li>
                             <span class="counter_con_left">投标金额：</span>
@@ -152,8 +126,8 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
                         <li>
                             <span class="counter_con_left">年化收益：</span>
                             <span class="counter_con_right">
-                                <input type="text" class="form-control s_rate" ng-model="engineer1.s_rate">%
-                                <!-- <span class="error" ng-show="form.$dirty && form.srate.$invalid">请输入投标期限，只能大于0的数字</span> -->
+                                <input type="text" class="form-control s_rate" ng-model="engineer1.s_rate" name="srate" ng-pattern="/^\d+(\.\d{1,2})?$/">%
+                                <span class="error" ng-show="form.$dirty && form.srate.$invalid">请输入投标期限，只能大于0的数字</span>
                             </span>
                         </li>
 
@@ -182,6 +156,34 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
                     <h4>本息合计：<span>{{all}}</span> 元</h4>
                     <p class="counter_con02_btn"><button class="btn" ng-click="all_money()">开始计算</button></p>
                 </div>
+
+                <div class="counter_con0 counter_con01"  ng-show="!isShow">
+                    <ul>
+                        <li>
+                            <span class="counter_con_left">投标金额：</span>
+                            <span class="counter_con_right">
+                                <input type="text" class="form-control money_send" ng-model="engineer.money_send" name="smoney" ng-pattern="/^\d+$/">元
+                            </span>
+                            <span class="error" ng-show="form.$dirty && form.smoney.$invalid">请输入投资金额，只能是100的整数倍</span>
+                        </li>
+                        <li>
+                            <span class="counter_con_left">投标期限：</span>
+                            <span class="counter_con_right">
+                                <input type="text" name="number" class="form-control money_date" ng-model= "engineer.money_date" ng-pattern="/^\d+$/">月<br/>                                
+                            </span>
+                            <span class="error" ng-show="form.$dirty && form.number.$invalid">请输入投标期限，只能大于0的数字</span>
+                        </li>
+                        <li>
+                            <span class="counter_con_left">VIP 等级：</span>
+                            <span class="counter_con_right">
+                                <select ng-model="engineer.currentActivity" class="form-control" ng-options="a.name for a in activities"></select>
+                            </span>
+                        </li>
+                    </ul>
+                    <h4>到期可得：<span>{{selected}}</span> 积分</h4>
+                    <p class="counter_con01_btn"><button class="btn" ng-click="credits()">开始计算</button></p>
+                </div>
+                
             </form>
         </div>
         <img src="images/counter_close.png" alt="" class="counter_close">
