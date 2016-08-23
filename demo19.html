@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo19--过滤器</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope) {
+	$scope.num = '468313512.45645';
+	$scope.num1 = '468313512';
+	$scope.name = "hello";
+
+	$scope.message = {"name":"lilei","age":"20"};
+
+	$scope.cas = [
+		{"color":"red","age":"10"},
+		{"color":"green","age":"20"},
+		{"color":"yellow","age":"30"},
+		{"color":"black","age":"40"}
+	]
+});
+
+</script>
+
+</head>
+<body>
+	<div ng-controller="aaa">
+		<p>{{num}}</p>
+		<p>{{num | currency}}</p>  <!--$468,313,512.00-->
+		<p>{{num | currency:"￥"}}</p> <!--￥468,313,512.00-->
+
+		<p>{{num | number}}</p>  <!--468,313,512.456  默认保留3位小数  后面可以跟参数：-->
+		<p>{{num | number:"2"}}</p>
+
+		<p>{{name | uppercase}}</p>  <!--转换成大写  lowercase:转换小写  没有参数-->
+
+		<pre>{{message | json }}</pre>  <!-- 格式化输出，用于调试时，方便阅读 -->
+
+		<p>{{name | limitTo:2 }}</p>  <!-- 字符串的截取  也可以截取数组 -->
+
+		<p>{{num1 | date:"yyyy-MM-dd"}}</p>  <!-- 格式化时间，格式化的是一个毫秒数不能有小数点 -->
+
+		<p>{{cas | orderBy:'age' : true }}</p>  <!-- orderBy 排序 默认的是顺序0到9 a到z 后面再跟一个参数true 倒序  -->
+
+		<p>{{cas | filter:"red" }}</p>  <!-- 匹配  用于搜索功能 -->
+
+		<p>{{cas | filter:"e" }}</p>  <!-- 匹配包含有e字符的所有  输出：[{"color":"red","age":"10"},{"color":"green","age":"20"},{"color":"yellow","age":"30"}] -->
+
+		<p>{{cas | filter:"e" : true }}</p> <!-- 为空 后面在跟一个参数表示匹配整体  -->
+
+		<p>{{cas | filter:"red" : true }}</p>  <!-- 输出 ：[{"color":"red","age":"10"}] -->
+
+	</div>
+</body>
+</html>
