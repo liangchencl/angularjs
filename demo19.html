@@ -44,6 +44,8 @@ app.controller('aaa', function aaa($scope) {
 
 		<p>{{name | limitTo:2 }}</p>  <!-- 字符串的截取  也可以截取数组 -->
 
+		<p>{{name | limitTo:2 | uppercase }}</p> <!-- 过滤器的组合使用 -->
+
 		<p>{{num1 | date:"yyyy-MM-dd"}}</p>  <!-- 格式化时间，格式化的是一个毫秒数不能有小数点 -->
 
 		<p>{{cas | orderBy:'age' : true }}</p>  <!-- orderBy 排序 默认的是顺序0到9 a到z 后面再跟一个参数true 倒序  -->

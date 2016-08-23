@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo20--js操作过滤器</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope,$filter) {
+	$scope.num = '45612';
+	$scope.name = $filter("uppercase")("hello"); //通过js来操作大写
+	$scope.number = $filter("number")(673421354.1235 , 1); // 保留一位小数
+	$scope.str = "hello";
+
+	// 通过自定义过滤器也可以写到js里面来  效果是一样的
+	$scope.str01 = $filter("firstUpper")("helllo" , 2);
+});
+
+// 自定义过滤器
+// 首字母大写   传参  也是直接写到后面：
+app.filter("firstUpper",function(){
+	return function(str,num){
+		// console.log(num);
+		// return str.charAt(0).toUpperCase() + str.substring(1);
+		// 传参  返回首字母大写，并且进行截取，只显示前面的2个字符  也可以不用传参 则显示全部
+		return (str.charAt(0).toUpperCase() + str.substring(1)).substring(0,num);
+	}
+});
+</script>
+
+</head>
+<body>
+	<div ng-controller="aaa">
+		<p>{{num}}</p>
+		<p>{{name}}</p>
+		<p>{{number}}</p>
+		<p>{{str | firstUpper:2}}</p>
+		<p>{{str01}}</p>
+	</div>
+</body>
+</html>
