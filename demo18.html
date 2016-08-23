@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo18</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope) {
+
+	// 封装的默认样式都写到这里面去：
+	$scope.default = function(){
+		$scope.isShow = true;
+	};
+	$scope.default();
+
+
+	$scope.tabclick = function(n){
+		if(n==1){
+			$scope.isShow = true;
+		}else{
+			$scope.isShow = false;
+		}
+	}
+});
+
+
+</script>
+<style>
+	.demo18 {background: #fff;border:1px solid #ccc;width: 300px;}
+	.qh_nav {margin: 0;border-bottom: 1px solid #ccc;}
+	.qh_nav span {display: inline-block;width: 146px;text-align: center;cursor: pointer;}
+	.qh_nav span.active {background: #4aafe2;color: #fff;}
+
+	.content {position: relative;width: 300px;height: 150px;}
+	.con0 {position: absolute;top: 0;left: 0;width: 300px;}
+
+</style>
+</head>
+<body>	
+	<div ng-controller="aaa" class="demo18">
+		<p class="qh_nav">
+			<span ng-class="{true:'active',false:''}[isShow]" ng-click="tabclick(1)">切换一</span>
+			<span ng-class="{true:'',false:'active'}[isShow]" ng-click="tabclick(0)">切换二</span>
+		</p>
+		<div class="content">
+			<div class="con01 con0" ng-show="isShow">
+				<p>说说作为一个普通投资者的心声，在这里总体感觉还可以，不管网站界面方面，投资流程方面，还是平台活动方面都还是不错的</p>
+			</div>
+			<div class="con02 con0" ng-show="!isShow">
+				<p>从汇钱庄到普汇云通，这其中的变化，我都是经历过的。如果说汇钱庄是乡下的纯朴少女，那普汇云通就是从乡下小妹到城市少女的蜕变，乡下小妹虽纯朴但土</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
