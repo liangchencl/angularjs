@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo06</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+table {width: 1000px;}
+table td{padding:15px 0;color:#737373;font-size:14px;text-align:center;}
+
+nav .pagination li{cursor:pointer;list-style: none;float: left;text-align: center;padding: 5px 10px;border:1px solid #dedede;}
+nav .pagination li.active {background: #4aafe2;color: #fff;}
+</style>
+</head>
+<body ng-app="myapp">
+<div ng-controller="aaa">
+	<div>
+		<p><input type="text" ng-model="sousuo"><input type="button" value="搜索" ng-click="search()"></p>
+	</div>
+	<table border="1" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>投资人</td>
+			<td>投资总额</td>
+			<td>年化收益率</td>
+			<td>收益</td>
+			<td>投资时间</td>
+		</tr>
+		<tr ng-repeat="n in items">
+			<td>{{n.userName}}</td>
+			<td>{{n.money | number:0}}</td>
+			<td>{{n.rate | number:2}}%</td>
+			<td>{{n.interest | number:2}}</td>
+			<td>{{n.time | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+		</tr>
+	</table>
+	<nav>
+		<ul class="pagination">
+			<li>
+				<a ng-click="Previous()">
+					<span>上一页</span>
+				</a>
+			</li>
+			<li ng-repeat="page in pageList" ng-class="{active: isActivePage(page)}" >
+				<a ng-click="selectPage(page)" >{{ page }}</a>
+			</li>
+			<li>
+				<a ng-click="Next()">
+					<span>下一页</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</div>
+
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope,$http,$filter) {
+	var url="json/20160824.json";
+
+   	$http.get(url).success( function(response) {
+		$scope.students = response; 
+		$scope.data = response.rows;
+		$scope.def = $scope.data; // 自定义一个搜索中间变量
+
+// 以下代码是在网上看到的！ 
+
+	   	$scope.pageSize = 6; // 设置每页显示数据条数
+		$scope.pages = Math.ceil($scope.data.length / $scope.pageSize); //分页数
+		$scope.newPages = $scope.pages > 5 ? 5 : $scope.pages; // 分页里面显示的的页码，如果分页数量大于5的话就显示5个，
+		$scope.pageList = [];
+		$scope.selPage = 1;
+		//设置表格数据源(分页)
+		$scope.setData = function () {
+			$scope.items = $scope.data.slice(($scope.pageSize * ($scope.selPage - 1)), ($scope.selPage * $scope.pageSize));
+			//通过当前页数筛选出表格当前显示数据
+		};
+
+		// 默认的第一页显示的数据
+		$scope.items = $scope.data.slice(0, $scope.pageSize);
+		//分页要repeat的数组
+		for (var i = 0; i < $scope.newPages; i++) {
+			$scope.pageList.push(i + 1);
+		};
+		//打印当前选中页索引
+		$scope.selectPage = function (page) {
+			//不能小于1大于最大
+			if (page < 1 || page > $scope.pages) return;
+			//最多显示分页数5
+			if (page > 2) {
+				//因为只显示5个页数，大于2页开始分页转换
+				var newpageList = [];
+				for (var i = (page - 3) ; i < ((page + 2) > $scope.pages ? $scope.pages : (page + 2)) ; i++) {
+					newpageList.push(i + 1);
+				}
+				$scope.pageList = newpageList;
+			}
+			$scope.selPage = page;
+			$scope.setData();
+			$scope.isActivePage(page);
+			console.log("选择的页：" + page);
+		};
+		//设置当前选中页样式
+		$scope.isActivePage = function (page) {
+			return $scope.selPage == page;
+		};
+		//上一页
+		$scope.Previous = function () {
+			$scope.selectPage($scope.selPage - 1);
+		}
+		//下一页
+		$scope.Next = function () {
+			$scope.selectPage($scope.selPage + 1);
+		};
+	});
+
+
+	// 搜索
+	// $scope.search = function(){
+	// 	$scope.items = $filter("filter")($scope.def,$scope.sousuo)
+	// };
+
+});
+
+</script>
+
+
+</body>
+</html>
