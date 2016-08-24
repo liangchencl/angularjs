@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo21</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope , $filter ) {
+	var original = [
+		{name:"red",age:"20"},
+		{name:"blue",age:"30"},
+		{name:"yellow",age:"40"},
+		{name:"green",age:"10"}
+	];
+	$scope.dateList = original ;
+	var boo = true ;
+	// 点击的时候进行排序
+	$scope.faStor = function(arg){
+		if(boo){
+			boo = !boo;
+		}else{
+			boo = !boo;
+		};
+		$scope.dateList = $filter("orderBy")($scope.dateList , arg ,boo);
+	};
+
+	// 搜索
+	$scope.search = function(){
+		// 这里要注意一下： 如果搜索里面写 $scope.dateList 的话 在第一次搜索的时候没有问题，但是第二次和以后的搜索时会出现问题，
+		// 原因是 这里进行了赋值  把搜索结果赋值给了原来的数据，所以第二次搜索的是在第一次搜索的结果里面进行搜索的。
+		// $scope.dateList = $filter("filter")($scope.dateList,$scope.filterval); 
+
+		// 所以要用下面的办法，相当于取一个中间变量，给这个中间变量赋值，在原始数据里面搜索并且不改变原来的数据，
+		$scope.dateList = $filter("filter")(original,$scope.filterval)
+	}
+});
+
+</script>
+
+</head>
+<body>
+	<div ng-controller="aaa">
+	<input type="text" ng-model="filterval"><input type="button" value="搜索" ng-click="search()">
+		<table border="1">
+			<tr>
+				<th ng-click="faStor('name')">颜色</th>
+				<th ng-click="faStor('age')">年龄</th>
+			</tr>
+			<!-- ng-repeat 遍历数组 -->
+			<tr ng-repeat="date in dateList">
+				<td>{{date.name}}</td>
+				<td>{{date.age}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
