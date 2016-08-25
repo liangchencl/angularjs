@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo23_ng-repeat扩展</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope) {
+	$scope.dataList = ['aaaa','bbbb','cccc','dddd','eeee'];
+});
+
+</script>
+<style>
+	.active {background: #f00;}
+</style>
+</head>
+<body>
+	<div ng-controller="aaa">
+		<ul>
+			<li ng-repeat= "data in dataList">{{data}}</li>
+		</ul>
+		<br />
+		<!-- 得到这个数组的索引 -->
+		<ul>
+			<li ng-repeat= "data in dataList">索引值：{{$index}}</li>
+		</ul>
+		<br />
+		<!-- $first 第一项是true 其他的是false -->
+		<!-- $last 最后一项是true 其他的是false -->
+		<!-- $middle 除了首项和尾项，其他项都是true， -->
+		<!-- $even 奇数行为true ， -->
+		<!-- $odd 偶数行为true ， -->
+		<ul>
+			<li ng-repeat= "data in dataList">索引值：{{$first}}</li>
+		</ul>
+		<br />
+		<!-- 具体应用：例如隔行换色 -->
+		<ul>
+			<!-- class里面也可以写表达式的，可以利用上面的$even返回值做判断来给li添加class值从而达到想要的效果 -->
+			<li class="{{$even ? 'active':''}}" ng-repeat= "data in dataList">{{data}}</li>
+		</ul>
+
+		<!-- ng-repeat-start 和 ng-repeat-end 循环开始和结束 可利用兄弟之间的循环 -->
+		例如：想循环输出如下格式的数据：
+		<div>div1</div>
+		<p>p1</p>
+		<div>div2</div>
+		则可以使用 ng-repeat-star和ng-repeat-end
+		<div ng-repeat-start="data in dataList">{{data}}</div>
+		<p>{{data}}</p>
+		<div ng-repeat-end >{{data}}</div>
+
+		<!-- 复制 ng-copy  剪切 ng-cut  粘贴 ng-paste -->
+		<p><input type="text" value="aslkdfasldfjaskf" ng-copy="ccc1=true">{{ccc1}}</p>  <!-- 当点击 ctrl+c 的时候触发 -->
+		<p><input type="text" value="aslkdfasldfjaskf" ng-paste="ccc2=true">{{ccc2}}</p>  <!-- 当点击 ctrl+v 的时候触发 -->
+		<p><input type="text" value="aslkdfasldfjaskf" ng-cut="ccc3=true">{{ccc3}}</p> <!-- 当点击右键选剪切的时候触发 -->
+	</div>
+</body>
+</html>

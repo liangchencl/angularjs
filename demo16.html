@@ -33,12 +33,16 @@ app.controller('aaa', function aaa($scope) {
 	});
 
 	// 跟原生的js里面的 JSON.parse()  JSON.stringify()  类似
-	// var str = '{"name":"hello","age":"20"}';
-	// var json = angular.fromJson(str);  // 转换成了json格式
-	// console.log(json);
+	var json = {"name":"hello","age":"20"};  // json格式
+	var obj = angular.fromJson(json);  // 转换成了对象
+	console.log(obj);
 
-	var json = {"name":"hello","age":"20"};
-	var str = angular.toJson(json);  // 把json转换成字符串 后面可再跟一个参数 true  格式化
+
+// JavaScript 提供多个内建对象，比如 String、Date、Array 等等。
+// 对象只是带有属性和方法的特殊数据类型。
+
+	var obj = {name:"hello",age:"20"}; // 对象格式
+	var str = angular.toJson(obj);  //  对象转换成json格式  后面可再跟一个参数 true  格式化
 	console.log(str);
 
 

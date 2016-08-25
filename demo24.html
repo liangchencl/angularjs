@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo24</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope) {
+	$scope.dataList = [
+		{name:"aaa",num:"1"},
+		{name:"bbb",num:"2"},
+		{name:"ccc",num:"3"},
+		{name:"ddd",num:"4"},
+		{name:"eee",num:"5"}
+	];
+	// 默认样式
+	$scope.def = {
+		defaul : $scope.dataList[0]
+	};
+});
+
+</script>
+<style>
+	.active {background: #f00;}
+</style>
+</head>
+<body>
+	<div ng-controller="aaa">
+		<!-- <div>
+			<select name="" id="">
+				<option value="">aaa</option>
+				<option value="">bbb</option>
+				<option value="">ccc</option>
+				<option value="">ddd</option>
+				<option value="">eee</option>
+			</select>
+		</div> -->
+		<div>
+			<select name="" id="" ng-options="data.name for data in dataList" ng-model="def.defaul"></select>
+			<p>对应返回的值：{{def.defaul.num}}</p>
+		</div>
+	</div>
+</body>
+</html>
