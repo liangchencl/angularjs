@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo25</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.4.6/angular-sanitize.min.js"></script>
+<script>
+var app = angular.module('myapp', ['ngSanitize']);
+app.controller('aaa',function aaa($scope){
+    $scope.text = "hello";
+    // 如果是这样的呢
+    $scope.text_n = "<h2> hello </h2>"
+});
+
+</script>
+
+</head>
+<body>
+	<div ng-controller="aaa">
+        <p>{{text}}</p>
+        <p ng-bind = "text"></p>
+
+        <!-- 如果要写多个表达式 例如下面的这样 用ng-bind 就不行了 -->
+        <p>{{text}},{{text}}</p>
+        <!-- 支持多表达式的 -->
+        <p ng-bind-template="{{text}},{{text}}"></p>
+        
+        <!-- 不常用 -->
+        <!-- 带标签的表达式会把这个标签当成字符串输出出来，并不会解析 -->
+        <!-- 解决办法是引入一个插件来转换。并且注意js里面的第一行里面的中括号里面要引入这个模块，注意写法 -->
+        <p ng-bind="text_n"></p>
+        <p ng-bind-html = "text_n"></p>
+        
+        <!-- ng-cloak 控制css的，下面标签没有解析的时候是display none 解析完了之后就是block了。 -->
+        <p ng-cloak>{{text_n}}</p>
+
+        <!-- 页面上不解析的情况 -->
+        <!-- 有时候会有这样的要求，页面上面就显示{{text}} 不要被解析 就用下面的方法： -->
+        <p ng-non-bindable>{{text}}</p>
+	</div>
+</body>
+</html>

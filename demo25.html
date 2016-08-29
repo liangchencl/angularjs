@@ -35,7 +35,8 @@ app.controller('aaa', function aaa($scope,$interval) {
 </head>
 <body>
 	<div ng-controller="aaa">
-		<!-- ng-disabled 禁用按钮 输入框等 -->
+		<!-- ng-disabled 禁用按钮 输入框等 动态的改变按钮的状态 -->
+		<!-- value  和  ng-value 建议使用 ng-value -->
 		<input type="button" value="{{text}}" ng-disabled="isDis">
 		<input type="button" ng-value="text" ng-disabled="isDis">
 		
