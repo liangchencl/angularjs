@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo28</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+    .red {color: #f00;}
+    .yellow {background: yellow;}
+</style>
+<script>
+var app = angular.module('myapp', []);
+app.controller('aaa',function aaa($scope){
+    
+    // 自定义默认的样式封装到一起
+    $scope.default = function(){
+        $scope.text = "hello";
+        $scope.className = true ;
+        $scope.style = "{color:'#fff',background:'#f00'}";
+        $scope.sClass = "{red:true,yellow:true}";
+        $scope.url = "http://www.baidu.com";
+    };
+    $scope.default();
+
+    $scope.showMe = function(){
+        $scope.className = !$scope.className;
+    }
+});
+
+</script>
+
+</head>
+<body>
+	<div ng-controller="aaa">
+        <!-- 自定义class -->
+        <p ng-class="{red:className,yellow:true}" ng-click="showMe()">{{text}}</p>
+        <p ng-class="{{sClass}}">{{text}}</p>
+
+        <!-- 自定义样式 -->
+        <p ng-style="{color:'#fff',background:'#f00'}">{{text}}</p>
+        <p ng-style="{{style}}">{{text}}</p>
+
+        <!-- a -->
+        <a href="{{url}}">{{text}}</a>
+        <a ng-href="{{url}}">{{text}}</a>
+        <!-- 通用写法 -->
+        <a ng-attr-href="{{url}}" ng-attr-title="{{text}}" ng-attr-class="" ng-attr-style="">{{text}}</a>
+	</div>
+</body>
+</html>
