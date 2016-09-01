@@ -54,18 +54,21 @@
             url     : 'demo31.php',
             data    : $.param($scope.formData),  // $.param()  序列化数组
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
-        })
-            .success(function(data) {
+        }).success(function(data) {
                 console.log(data);
                 if (!data.success) {
                     $scope.errorName = data.errors.name;
                     $scope.errorSuperhero = data.errors.superheroAlias;
+                    $scope.message = "";  // 第一次提交正确连续第二次提交错误时 隐藏 success 提示
                 } else {
                     $scope.message = data.message;
+                    // 第一次提交错误，连续第二次提交正确时 隐藏下面的错误提示。
+                    // 原理是 把input框致空，为假，则 ng-show 不显示。  其实可以用一个公用的开始设置为假，然后真假切换也可以。
+                    $scope.errorName = "";
+                    $scope.errorSuperhero = "";
                 }
             });
         };
-
     });
 </script>
 </body>
