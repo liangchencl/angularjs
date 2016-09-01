@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="description" content="">
+<meta name="keywords" content="">
+<title>Angular Forms</title>
+<link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<script src="js/jquery-1.10.2.min.js"></script>
+<script>
+</script>
+</head>
+<body ng-app="myApp">
+<div class="container">
+	<div class="col-md-6 col-md-offset-3"  ng-controller="aaa">
+	<div class="page-header">
+		<h1><span class="glyphicon glyphicon-tower"></span> Submitting Forms with Angular</h1>
+	</div>
+	<div id="messages" ng-show="message">{{ message }}</div>
+		<form ng-submit="processForm()">
+			<div id="name-group" class="form-group">
+				<label>Name</label>
+				<input type="text" name="name" class="form-control" placeholder="Bruce Wayne" ng-model = "formData.name">
+				<span class="help-block" ng-show="errorName">{{ errorName }}</span>
+			</div>
+			<div id="superhero-group" class="form-group">
+				<label>Superhero Alias</label>
+				<input type="text" name="superheroAlias" class="form-control" placeholder="Caped Crusader" ng-model="formData.superheroAlias">
+				<span class="help-block" ng-show="errorSuperhero">{{ errorSuperhero }}</span>
+			</div>
+			<button type="submit" class="btn btn-success btn-lg btn-block">
+				<span class="glyphicon glyphicon-flash"></span> Submit!
+			</button>
+		</form>
+        <p>
+            <pre>
+                {{ formData }}
+            </pre>
+        </p>
+	</div>
+</div>
+
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app = angular.module("myApp",[]);
+    // var app = angular.module('myapp', []);
+    app.controller("aaa",function aaa($scope , $http){
+        $scope.formData = {};  // 默认为空
+        
+        $scope.processForm = function() {
+            $http({
+            method  : 'POST',
+            url     : 'demo31.php',
+            data    : $.param($scope.formData),  // $.param()  序列化数组
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+        })
+            .success(function(data) {
+                console.log(data);
+                if (!data.success) {
+                    $scope.errorName = data.errors.name;
+                    $scope.errorSuperhero = data.errors.superheroAlias;
+                } else {
+                    $scope.message = data.message;
+                }
+            });
+        };
+
+    });
+</script>
+</body>
+</html>
