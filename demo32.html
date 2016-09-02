@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myapp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo32</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+    .red {color: #f00;}
+    .yellow {background: yellow; }
+</style>
+<script>
+var app = angular.module('myapp', []);
+app.controller('aaa',function aaa($scope){
+    $scope.text = 'hello';
+    $scope.arr = [['a','b'],['c','d']];
+});
+
+</script>
+
+</head>
+<body>
+    <!-- ng-init -->
+	<!-- <div ng-controller="aaa" ng-init="text='hello'">
+        {{text}}
+	</div> -->
+
+    <!-- ng-init 不常用 -->
+    <div ng-controller="aaa">
+        <div ng-repeat="a in arr" ng-init="aa=$index">   <!-- $index 索引 -->
+            <div ng-repeat="a1 in a" ng-init="aa1=$index">
+                <p>{{a1}}:{{aa}}{{aa1}}</p>
+            </div>
+        </div>
+
+
+        <!-- ng-include指令 用于包含外部的 HTML 文件。 -->
+        <!-- 要在服务器环境下面才能看到效果， -->
+        <div ng-include="'demo33.html'"></div>
+        
+
+        <!-- ng-model 可以进行双向数据绑定 -->
+        <div>
+            <!-- ng-model-options="{updateOn:'blur'}" 在光标移除时触发 -->
+            <!-- 
+                {updateOn: 'event'}规则指定事件发生后绑定数据
+
+                {debounce : 1000} 规定等待多少毫秒后绑定数据
+
+                {allowInvalid : true|false} 规定是否需要验证后绑定数据
+
+                {getterSetter : true|false} 规定是否作为 getters/setters 绑定到模型
+
+                {timezone : '0100'} 规则是否使用时区
+             -->
+            <input type="text" ng-model="text" ng-model-options="{updateOn:'blur'}">
+            <p>{{text}}</p>
+        </div>
+        
+        <!-- ng-controller 链接数据和视图的桥梁 -->
+    </div>
+
+</body>
+</html>
