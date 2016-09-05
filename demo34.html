@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>标签指令</title>
+<title>34</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 <link href="" rel="stylesheet">
@@ -21,6 +21,7 @@ app.controller('aaa',function aaa($scope){
         {brand : "Volvo", model : "XC90", color : "black"}
     ];
     $scope.selectedCar = $scope.cars[0];
+    $scope.selectedCar01 = "Ford";
 });
 
 </script>
@@ -32,6 +33,15 @@ app.controller('aaa',function aaa($scope){
         <select ng-model="selectedCar" ng-options="y.brand for (x, y) in cars"></select>
         <p>你选择的是：{{selectedCar.brand}}</p>
         <p>你选择的是：{{selectedCar.color}}</p>
+        
+        <!-- 用ng-repeat也可以实现下拉菜单，但是输出的只是一个字符串，不能输出这个数组里面的其他内容（或者是我还没有找到实现的方法） -->
+        <select ng-model="selectedCar01">
+            <option ng-repeat ="x in cars" value="{{x.brand}}">{{x.brand}}</option>
+        </select>
+        <!-- selectedCar01 取的是value的值 -->
+        <p>你选择的是：{{selectedCar01}}</p>
+        <hr />
+
         <!-- 表格显示序号可以在 <td> 中添加 $index:  -->
         <table border="1" cellpadding="0" cellspacing="0" style="width: 500px;text-align: center;">
             <tr ng-repeat="x in cars">
@@ -41,6 +51,9 @@ app.controller('aaa',function aaa($scope){
                 <td>{{x.color}}</td>
             </tr>
         </table>
+
+        <!-- ng-repeat 指令是通过数组来循环 HTML 代码来创建下拉列表，但 ng-options 指令更适合创建下拉列表，它有以下优势：
+使用 ng-options 的选项的一个对象， ng-repeat 是一个字符串。 -->
     </div> 
 </body>
 </html>
