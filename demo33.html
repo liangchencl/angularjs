@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>标签指令</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+    .red {color: #f00;}
+    .yellow {background: yellow; }
+</style>
+<script>
+var app = angular.module('myapp', []);
+app.controller('aaa',function aaa($scope){
+
+});
+
+// 判断键盘上按下的是哪个键
+document.onkeydown = function(e){
+	var num = e || window.e;
+	console.log(num.keyCode);
+	
+	var key = String.fromCharCode(event.keyCode); 
+	console.log(key);
+}
+</script>
+
+</head>
+<body>
+	<!-- 分别点击下面的 a 和 b 会发现 angular里面的a 点击的时候没有反应，而b点击的时候会触发页面刷新！ -->
+    <div ng-app="myapp">
+    	<!-- 标签指令 -->
+    	<a href="">aaaaaaa</a>
+    </div> 
+    <!-- 普通html下面的一个a标签 -->
+    <a href="">bbbbbbb</a>   
+</body>
+</html>

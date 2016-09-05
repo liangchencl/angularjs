@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>标签指令</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+    .red {color: #f00;}
+    .yellow {background: yellow; }
+</style>
+<script>
+var app = angular.module('myapp', []);
+app.controller('aaa',function aaa($scope){
+    $scope.cars = [
+        {brand : "Ford", model : "Mustang", color : "red"},
+        {brand : "Fiat", model : "500", color : "white"},
+        {brand : "Volvo", model : "XC90", color : "black"}
+    ];
+    $scope.selectedCar = $scope.cars[0];
+});
+
+</script>
+
+</head>
+<body ng-app = "myapp">
+    <div ng-controller = "aaa">
+        <!-- 使用对象作为数据源, x 为键(key), y 为值(value): -->
+        <select ng-model="selectedCar" ng-options="y.brand for (x, y) in cars"></select>
+        <p>你选择的是：{{selectedCar.brand}}</p>
+        <p>你选择的是：{{selectedCar.color}}</p>
+        <!-- 表格显示序号可以在 <td> 中添加 $index:  -->
+        <table border="1" cellpadding="0" cellspacing="0" style="width: 500px;text-align: center;">
+            <tr ng-repeat="x in cars">
+                <td>{{$index + 1}}</td>
+                <td>{{x.brand}}</td>
+                <td>{{x.model}}</td>
+                <td>{{x.color}}</td>
+            </tr>
+        </table>
+    </div> 
+</body>
+</html>
