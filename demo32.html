@@ -16,6 +16,8 @@
 var app = angular.module('myapp', []);
 app.controller('aaa',function aaa($scope){
     $scope.text = 'hello';
+    $scope.text1 = 'hello';
+    $scope.text2 = 'hello';
     $scope.arr = [['a','b'],['c','d']];
 });
 
@@ -58,6 +60,12 @@ app.controller('aaa',function aaa($scope){
              -->
             <input type="text" ng-model="text" ng-model-options="{updateOn:'blur'}">
             <p>{{text}}</p>
+            <input type="text" ng-model="text1" ng-model-options="{updateOn:'blur'}">
+            <p>{{text1}}</p>
+            
+            <!-- 规定输入框输入之后格5s之后下面的p标签里面才显示出来 -->
+            <input type="text" ng-model="text2" ng-model-options="{debounce:5000}">
+            <p>{{text2}}</p>
         </div>
         
         <!-- ng-controller 链接数据和视图的桥梁 -->
