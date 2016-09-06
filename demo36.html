@@ -9,6 +9,11 @@
     var app=angular.module("myapp",[]);
     app.controller("aaa",function aaa($scope){
         $scope.text = "hello";
+        $scope.reset = function(){
+            $scope.master = angular.copy($scope.text);
+        };
+        // 先执行一次 reset()；目的是刚刚打开页面的时候输入框里面显示的是默认值
+        $scope.reset();
     });
 </script>
 </head>
@@ -17,11 +22,11 @@
     <!-- novalidate 组织默认的HTML5表单验证样式 可在火狐里面去掉form里面的novalidate 来查看效果 -->
         <form name="myForm" novalidate>
             <!-- required 必须的 -->
-            <input type="text" name="myText" ng-model="text" required>
+            <input type="text" name="myText" ng-model="master" required>
             <span ng-show="myForm.myText.$dirty && myForm.myText.$invalid">
                 <span ng-show="myForm.myText.$error.required">用户名是必须的。</span>
             </span>
-
+            
             <!--  -->
             <div>{{myForm.myText.$valid}}</div>  <!-- 字段内容合法的，验证输入框里面的值  -->
             <div>{{myForm.myText.$invalid}}</div> <!-- 字段内容非法的  -->
@@ -31,6 +36,8 @@
             
             <!-- 如果为true的时候就说明验证失败 如果成功的话是不输出任何东西的 -->
             <div>{{myForm.myText.$error}}</div>
+
+            <button ng-click="reset()">RESET</button>
         </form>
     </div>
 </body>
