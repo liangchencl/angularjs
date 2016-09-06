@@ -24,6 +24,15 @@ app.controller('aaa',function aaa($scope){
     $scope.selectedCar01 = "Ford";
 });
 
+// 判断键盘上按下的是哪个键
+document.onkeydown = function(e){
+    var num = e || window.e;
+    console.log(num.keyCode);
+    
+    var key = String.fromCharCode(event.keyCode); 
+    console.log(key);
+}
+
 </script>
 
 </head>

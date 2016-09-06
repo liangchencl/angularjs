@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>angular的touch事件</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript" src="js/ngtouch.js" ></script>
+<script type="text/javascript">
+    var app=angular.module("app",["ngTouch"]);
+    app.controller("touchCtrl",function($scope){
+        $scope.touchStart=function(){
+            alert("touchStart");
+        }
+        $scope.touchMove=function(){
+            console.log("touchMove");
+        }
+        $scope.touchEnd=function(){
+            alert("touchEnd");
+        }
+    });
+</script>
+</head>
+<body ng-app = "app">
+    <div ng-controller="touchCtrl">
+        <button ng-touchstart="touchStart()">touchStart</button>
+        <button ng-touchmove="touchMove()">touchMove</button>
+        <button ng-touchend="touchEnd()">touchEnd</button>
+    </div>
+</body>
+</html>
