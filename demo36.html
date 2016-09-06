@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo36</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.controller("aaa",function aaa($scope){
+        $scope.text = "hello";
+    });
+</script>
+</head>
+<body ng-app = "myapp">
+    <div ng-controller="aaa">
+    <!-- novalidate 组织默认的HTML5表单验证样式 可在火狐里面去掉form里面的novalidate 来查看效果 -->
+        <form name="myForm" novalidate>
+            <!-- required 必须的 -->
+            <input type="text" name="myText" ng-model="text" required>
+            <span ng-show="myForm.myText.$dirty && myForm.myText.$invalid">
+                <span ng-show="myForm.myText.$error.required">用户名是必须的。</span>
+            </span>
+
+            <!--  -->
+            <div>{{myForm.myText.$valid}}</div>  <!-- 字段内容合法的，验证输入框里面的值  -->
+            <div>{{myForm.myText.$invalid}}</div> <!-- 字段内容非法的  -->
+
+            <div>{{myForm.myText.$dirty}}</div>  <!--   表单有填写记录，输入框里面有改动时就变成了true -->
+            <div>{{myForm.myText.$pristine}}</div>  <!--   表单没有填写记录，初始的时候是true 当输入了值时候就变成了false -->
+            
+            <!-- 如果为true的时候就说明验证失败 如果成功的话是不输出任何东西的 -->
+            <div>{{myForm.myText.$error}}</div>
+        </form>
+    </div>
+</body>
+</html>
