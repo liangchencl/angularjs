@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo37</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.controller("aaa",function aaa($scope){
+        $scope.text = "";
+        $scope.num = function(){
+        	return 100 - $scope.text.length;
+        }
+    });
+</script>
+</head>
+<body ng-app = "myapp">
+    <div ng-controller="aaa">
+    	<textarea name="" id="" cols="30" rows="10" ng-model="text"></textarea>
+    	<p>剩余字数<span ng-bind="num()"></span></p>
+    </div>
+</body>
+</html>
