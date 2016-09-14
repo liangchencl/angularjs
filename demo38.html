@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo38</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.controller("aaa",function aaa($scope){
+        $scope.text = "hello";
+    });
+</script>
+<style>
+/* form里面的class可以来改变不同情况下面的样式 */
+
+/* 验证成功下的样式 */
+    .ng-valid-required input {border:1px solid #000;background: #fff;}
+
+
+/* 验证失败情况下的样式 */
+    .ng-invalid-required input {border:1px solid #f00;background: red;}
+    .ng-invalid-required span {color: #f00;}
+    
+    .ng-invalid-pattern input {border:1px solid #00f;background: yellow;}
+
+    .ng-invalid-minlength input {border:1px solid #0f0;background: green;}
+    .ng-invalid-minlength span {color: #0f0;}
+</style>
+</head>
+<body ng-app = "myapp">
+    <div ng-controller="aaa">
+    <!-- novalidate 属性规定当提交表单时不对其进行验证。就是取消表单的默认验证。 -->
+        <form name="myForm" novalidate >
+            <!-- required 验证不能为空 -->
+            <!-- ng-minlength 和 ng-maxlength 最短字符和最长字符 -->
+            <!-- ng-pattern 匹配正则 -->
+            <input type="text" name="myText" ng-model="text" required ng-minlength = "5" ng-pattern="/^[a-zA-Z]+$/">
+            <span ng-show="myForm.myText.$error.required">不能为空</span>
+            <span ng-show="myForm.myText.$error.minlength">最短不能少于6个字符</span>
+            <span ng-show="myForm.myText.$error.pattern">只能是大写或者小写字母</span>
+        </form>
+        <p>{{myForm.myText.$error}}</p>
+    </div>
+</body>
+</html>
