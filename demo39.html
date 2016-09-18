@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo39</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.controller("aaa",function aaa($scope){
+
+    });
+    app.directive("myHello",function(){
+        return {
+            restrict : "AECM",
+            replace : true,
+            template : "<div>自定义指令</div>"
+            // templateUrl : 
+        };
+    });
+</script>
+
+</head>
+<body ng-app = "myapp">
+    <!-- 自定义指令一般用驼峰法，所以可以写成myHello，这里不要用ng， -->
+
+    <!-- replace : true, 注意有和没有的区别：如果设置replace : true,则会替换这一级的标签，如果没有的话则会在这一级的里面生成 -->
+    
+<p>restrict 值可以是以下几种:</p>
+<p>E 作为元素名使用</p>
+<p>A 作为属性使用</p>
+<p>C 作为类名使用</p>
+<p>M 作为注释使用</p>
+C和M不常用
+<hr />
+    <!-- 注意：restrict的值要大写 -->
+    <!-- restrict : "A" -->
+    <h1 my-hello></h1>
+    
+    <!-- restrict : "E" -->
+    <h2><my-hello></my-hello></h2>
+    
+    <!-- restrict : "C" -->
+    <h2 class="my-hello"></h2>
+
+    <!-- restrict : "M" -->
+    <!-- 注意空格，用restrict : "M"的时候要设置replace : true, -->
+    <!-- directive:my-hello -->
+
+    <div ng-controller="aaa">
+
+    </div>
+</body>
+</html>
