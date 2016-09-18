@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo40</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.directive("myTab",function(){
+        return {
+            restrict : "AE",
+            replace : true,
+            // scope : true,
+            scope : {
+                // 这里是省略了 @my-id 
+                myId : "@",
+                myName : "=",
+                myFn : '&' 
+                // myId : "@aaa"
+            },
+            controller : ["$scope",function($scope){
+                $scope.name = "miaov" ;
+            }],
+            template : '<div id="{{myId}}">\
+                            <input type="button" class="active" value="1" ng-click=myFn({num:456})>\
+                            <input type="button" value="2">\
+                            <input type="button" value="3">\
+                            <div style="display: block">{{myName}}</div>\
+                            <div></div>\
+                            <div></div>\
+                        </div>'
+
+            // template : '<div id="tab">'+
+            //                 '<input type="button" value="1">'+
+            //                 '<input type="button" value="2">'+
+            //                 '<input type="button" value="3">'+
+            //                 '<div style="display: block"></div>'+
+            //                 '<div></div>'+
+            //                 '<div></div>'+
+            //             '</div>'
+
+            // 下面的这种方法要在服务器环境下运行
+            // templateUrl : 'demo40_1.html'
+        };
+    });
+    
+    app.controller("aaa",function($scope){
+        $scope.name = "hello";
+        $scope.show =function(n){
+            // alert(123);
+            alert(n)
+        }
+    })
+</script>
+<style>
+    #tab1 div,#tab2 div {width: 200px;height: 200px;border:1px solid #ccc;display: none;}
+    #tab1 input.active,#tab2 input.active {background: #f00;}
+</style>
+</head>
+<body ng-app = "myapp">
+
+    <!-- 可重用 -->
+    <!-- 独立作用域 scope : true, -->
+    <!-- 隔离作用域 scope : {}, 这样外部的数据就不会影响内部的数据，这里的aaa里面的数据就不会调用，可以通过controller来定义，但是这里定义的数据就是共享的，自定义指令里面显示的都是这个。 -->
+    
+    <!-- 通过审查元素可以看到下面的两个自定义指令生成的代码的id是一样的，可以通过scope:{}来改变，就是下面的绑定策略： -->
+    <!-- 绑定策略 -->
+    <!-- scope : {
+                myId : "@",     @ 解析出来的就是一个字符串，
+                myName : "=",   = 解析的是数据，下面的name就不是一个字符串了，是一个变量名，
+                myFn : "&"      & 绑定父级函数传递的一个参数
+            }, 
+    -->
+
+    <div ng-controller="aaa">
+
+        <!-- <my-tab></my-tab> -->
+        <!-- 如果在上面不添加scope:true 独立作用域 则这两个框里面的默认值都变成了hi -->
+        <!-- <my-tab ng-init="name='hi'"></my-tab> -->
+        
+        <hr />
+        <!-- 绑定策略 -->
+        <my-tab my-id="tab1" my-name="name" my-fn="show(num)"></my-tab>
+        <my-tab my-id="tab2" my-name="name" my-fn="show(num)"></my-tab>
+        
+        <hr />
+        <!-- <my-tab aaa="tab1"></my-tab>
+        <my-tab aaa="tab2"></my-tab> -->
+    </div>
+
+</body>
+</html>

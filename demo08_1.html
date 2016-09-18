@@ -34,6 +34,7 @@ var app = angular.module('myapp', []);
 						+'<div class="title" ng-click="toggle()">{{title}}</div>'
 						+'<div class="body" ng-show="showMe" >{{text}}</div>'
 						+'</div>',
+			// 这里可以用 templateUrl 来代替
 			link : function(ceshi){
 				ceshi.showMe = true;
 				ceshi.toggle = function toggle(){
