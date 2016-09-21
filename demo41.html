@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+</head>
+<body>
+<pre>
+用法
+ngOption针对不同类型的数据源有不同的用法，主要体现在数组和对象上。
+
+数组：
+label for value in array 
+select as label for value in array
+label group by group for value in array
+select as label group by group for value in array
+select as label group by group for value in array track by trackexpr
+
+对象：
+label for ( key , value ) in object
+select as label for ( key , value ) in object
+label group by group for ( key , value ) in object
+select as label group by group for ( key , value ) in object
+</pre>
+<div ng-controller="ngselect4">
+
+<hr/>
+	<h2>数组</h2>
+
+	<p>label for value in array </p>
+	<p>选项，{{selected02}}</p>
+    <select ng-model="selected02" ng-options="o.id for o in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+    <p>select as label for value in array</p>
+    <p>选项，{{selected}}</p>
+    <select ng-model="selected" ng-options="o.id as o.ProductName for o in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+	<!-- arrs.a group by arrs.b for arrs in arr  意思是把下拉框里面的以b 分类 -->
+	<p>label group by group for value in array</p>
+    <p>选项，{{selected03}}</p>
+    <select ng-model="selected03" ng-options="o.id group by o.MainCategory for o in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+	
+	<p>select as label group by group for value in array</p>
+	<p>选项，{{selected04}}</p>
+    <select ng-model="selected04" ng-options="o.id as o.ProductName group by o.MainCategory for o in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+    <p>select as label group by group for value in array track by trackexpr</p>
+	<p>选项，{{selected05}}</p>
+    <select ng-model="selected05" ng-options="o.id as o.ProductName group by o.MainCategory for o in optData track by o.id">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+<hr/>
+	<h2>对象</h2>
+    <p>label for ( key , value ) in object</p>
+	<p>选项，{{selected06}}</p>
+    <select ng-model="selected06" ng-options="key for (key, value) in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+    <p>select as label for ( key , value ) in object</p>
+	<p>选项，{{selected07}}</p>
+    <select ng-model="selected07" ng-options="key as key for (key, value) in objData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+    <p>label group by group for ( key , value ) in object</p>
+	<p>选项，{{selected08}}</p>
+    <select ng-model="selected08" ng-options="value.ProductName group by value.ProductColor for (key, value) in optData">
+        <option value="">-- 请选择 --</option>
+    </select>
+
+</div>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+
+app.controller("ngselect4",['$scope',function($sc){
+    $sc.selected = '';
+    $sc.selected02 = '';
+    $sc.selected03 = '';
+    $sc.selected04 = '';
+    $sc.selected05 = '';
+    $sc.selected06 = '';
+    $sc.selected07 = '';
+    $sc.selected08 = '';
+    $sc.optData = [{
+        id: 10000,
+        MainCategory: '男',
+        ProductName: '水洗T恤',
+        ProductColor: '白'
+    },{
+        id: 10001,
+        MainCategory: '男',
+        ProductName: '水洗T恤',
+        ProductColor: '白'
+    },{
+        id: 10002,
+        MainCategory: '女',
+        ProductName: '圓領长袖',
+        ProductColor: '黃'
+    },{
+        id: 10003,
+        MainCategory: '女',
+        ProductName: '圓領短袖',
+        ProductColor: '黃'
+    }];
+
+    $sc.objData = {
+		"investList01": [
+			{
+				"id": 10000,
+				"MainCategory": "男",
+				"ProductName": "水洗T恤",
+				"ProductColor": "白"
+			},
+			{
+				"id": 10001,
+				"MainCategory": "男",
+				"ProductName": "水洗T恤",
+				"ProductColor": "白"
+			}
+		],
+		"investList02": [
+			{
+				"id": 10002,
+				"MainCategory": "女",
+				"ProductName": "圓領长袖",
+				"ProductColor": "黃"
+			},
+			{
+				"id": 10003,
+				"MainCategory": "女",
+				"ProductName": "圓領短袖",
+				"ProductColor": "黃"
+			}
+		],
+	}
+}]); 
+</script>
+</body>
+</html>
