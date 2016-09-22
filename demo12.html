@@ -7,12 +7,44 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <link href="" rel="stylesheet">
+<style>
+	ul,li {list-style: none;padding:0; }
+	.nav ul {width: 900px;border:1px solid #ccc;overflow: hidden;padding-left: 0;}
+	.nav ul li {float: left;width: 20%;list-style: none;text-align: center;}
+	.nav ul li.active {background: #4aafe2;color: #fff;}
+
+	.content ul {width: 300px;text-align: center;}
+
+</style>
 <script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
 <script>
-// angular-bind()  改 this 指向  跟jquery里面的$.proxy()类似
+
 var app = angular.module("myApp1",[]);
 app.controller("aaa",function($scope){
-	$scope.name = "hello";
+
+	$scope.a = [];
+	// 默认是第一个选项：设置为active；也可以设置成0或者1；那样的话就要判断并且给class添加active了；这里直接写active，少了一步。
+	//  pre 是当前点击选项的上一次点击选项；
+	// a[pre]  是当前点击的选项；
+	// 都设置成默认的第一个选项
+	pre = 1;  
+	$scope.a[pre] = "active";
+	$scope.tabclick = function(i){
+		
+		// if(pre!=i){
+		// 	$scope.a[i]='active';  点击当前的选项时传一个参数。当前的选项是 active 
+		// 	$scope.a[pre]="";  然后把其他选项制空；
+		// 	pre = i;  
+		// }
+		
+		// 也可以用下面代码判断
+		if(pre == i){  // 判断是否重复点击当前的选项
+			return ;  // 跳出，不再执行下面的代码了。
+		};
+		$scope.a[i]='active';  // 点击的时候分别传参1，2，3  即这里的i分别是1，2，3，然后在html代码里面判断 ng-show="a[0]=='active'" 是否为真！
+		$scope.a[pre]="";  // 把当前点击的上一次点击的选项制空。
+		pre = i;  // 这里就是pre设置成当前点击的上一次点击选项
+	}
 });
 
 
@@ -20,9 +52,35 @@ app.controller("aaa",function($scope){
 
 </head>
 <body>
+
+<!--  扩展看demo12_1.html -->
+
+
 <div ng-app="myApp1">
 	<div ng-controller="aaa">
-		{{name}}
+		<div class="nav">
+			<ul>
+				<li ng-click="tabclick(0)" ng-class="a[0]">导航一</li>
+				<li ng-click="tabclick(1)" ng-class="a[1]">导航二</li>
+				<li ng-click="tabclick(2)" ng-class="a[2]">导航三</li>
+			</ul>
+		</div>
+		<div class="content">
+			<ul>
+				<li ng-show="a[0]=='active'">
+					<img src="images/1.jpg" alt="">
+					<p>文字文字文字文字文字文字文字</p>
+				</li>
+				<li ng-show="a[1]=='active'">
+					<img src="images/2.jpg" alt="">
+					<p>文字文字文字文字文字文字文字</p>
+				</li>
+				<li ng-show="a[2]=='active'">
+					<img src="images/3.jpg" alt="">
+					<p>文字文字文字文字文字文字文字</p>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>
 </body>

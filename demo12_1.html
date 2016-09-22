@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo12</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+	ul,li {list-style: none;padding:0; }
+	.nav ul {width: 900px;border:1px solid #ccc;overflow: hidden;padding-left: 0;}
+	.nav ul li {float: left;width: 20%;list-style: none;text-align: center;}
+	.nav ul li.active {background: #4aafe2;color: #fff;}
+
+	.content ul {width: 300px;text-align: center;}
+	/*.content ul li {display: none;}*/
+	/*.content ul li.active {display: block;}*/
+</style>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+// angular-bind()  改 this 指向  跟jquery里面的$.proxy()类似
+var app = angular.module("myApp1",[]);
+app.controller("aaa",function($scope){
+	// $scope.isShow = true ;
+	$scope.ab = [1,2,3,4,5];
+	$scope.img = ['1.jpg','2.jpg','3.jpg','4.jpg',"5.jpg"];
+	$scope.a = [];
+	pre = 1;
+	$scope.a[pre] = "active";
+	$scope.tabclick = function(i){
+		if(pre!=i){
+			$scope.a[i]='active';
+			$scope.a[pre]="";
+			pre = i;
+		}
+	}
+});
+
+
+</script>
+
+</head>
+<body>
+<div ng-app="myApp1" ng-cloak>
+	<div ng-controller="aaa">
+		<div class="nav" >
+			<ul>
+				<li ng-repeat = "i in ab" ng-click="tabclick(i)" ng-class="a[i]">导航{{i}}</li>
+				<!--<li ng-click="tabclick(1)" ng-class="a[1]">导航二</li>
+				<li ng-click="tabclick(2)" ng-class="a[2]">导航三</li> -->
+			</ul>
+		</div>
+		<div class="content">
+			<ul>
+				<!-- <li ng-show="a[i]=='active'" ng-repeat="i in ab" >
+					<img ng-src="images/{{i}}.jpg" alt="">
+					<p>文字文字文字文字文字文字文字</p>
+				</li> -->
+ 				<li ng-show="a[$index+1]=='active'" ng-repeat = "xx in img">
+					<img ng-src="images/{{xx}}" alt="" >
+					<p>文字文字文字文字文字文字文字</p>
+				</li>
+				<!--<li ng-show="a[2]=='active'">
+					<img src="images/3.jpg" alt="">
+					<p>文字文字文字文字文字文字文字</p>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+</div>
+</body>
+</html>
