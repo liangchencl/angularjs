@@ -27,8 +27,8 @@ app.controller('aaa',function aaa($rootScope , $interval){
 </head>
 <body>
 	<div ng-controller="aaa">
-    <!-- 这里为什么会报错，但是图片是正常显示出来了…… -->
-		<img src="{{imgSrc}}" alt="1">
+    <!-- 这里为什么会报错，但是图片是正常显示出来了…… 用ng-src就可以了 -->
+		<img ng-src="{{imgSrc}}" alt="1">
 		<p>{{imgSrc}}</p>
 	</div>
 </body>

@@ -27,7 +27,7 @@ app.controller("aaa",function($scope){
 	//  pre 是当前点击选项的上一次点击选项；
 	// a[pre]  是当前点击的选项；
 	// 都设置成默认的第一个选项
-	pre = 1;  
+	pre = 0;  
 	$scope.a[pre] = "active";
 	$scope.tabclick = function(i){
 		
@@ -41,6 +41,8 @@ app.controller("aaa",function($scope){
 		if(pre == i){  // 判断是否重复点击当前的选项
 			return ;  // 跳出，不再执行下面的代码了。
 		};
+		// console.log(i)
+		// console.log(pre)
 		$scope.a[i]='active';  // 点击的时候分别传参1，2，3  即这里的i分别是1，2，3，然后在html代码里面判断 ng-show="a[0]=='active'" 是否为真！
 		$scope.a[pre]="";  // 把当前点击的上一次点击的选项制空。
 		pre = i;  // 这里就是pre设置成当前点击的上一次点击选项
