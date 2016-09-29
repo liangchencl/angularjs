@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+    .div1 {width: 200px;height: 200px;background: #f00;position: absolute;}
+</style>
+</head>
+<body>
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myApp', []);
+
+app.controller("aaa",['$scope',function($sc){
+    
+}]); 
+app.directive("myDrag",function(){
+    return {
+        restrict : "A",
+        replace : true,
+        link : function(scope,element,attr){
+            // console.log(element);
+            console.log(attr.myDrag)  // 下面html里面给my-Drag 赋值了，这里的attr就可以取到所赋的值，但是这里取到的值是一个字符串
+            console.log(typeof(attr.myDrag));
+
+            attr.myDrag = angular.equals(attr.myDrag,"true");  //现在转换成了布尔值了 equals() 比较两个值是否相等
+            console.log(attr.myDrag)
+
+            //下面的方法也可以让attr.myDrag变成布尔值
+            // if(attr.myDrag == "true"){
+            //     attr.myDrag = true;
+            // }else{
+            //     attr.myDrag = false;
+            // }
+            // console.log(typeof(attr.myDrag))
+
+            // 可以通过判断 attr.myDrag 来进行不同的操作
+
+            var disX = 0;
+            var disY = 0;
+            element.on("mousedown",function(ev){
+                disX = ev.pageX - $(this).offset().left;
+                // console.log(disX);
+                disY = ev.pageY - $(this).offset().top;
+                $(document).on("mousemove",function(ev){
+                    // 判断my-Drag 为true的时候可以拖动，为false的时候不能拖动
+                    if(attr.myDrag){
+                        $(".div1").css({"left":ev.pageX - disX});
+                        $(".div1").css({"top":ev.pageY - disY});
+                    }                    
+                });
+                $(document).on("mouseup",function(){
+                    $(document).off();
+                });
+                return false;
+            })
+        }
+    }
+})
+</script>
+
+
+<div ng-controller="aaa" class="div1" my-Drag="true" ></div>
+</body>
+</html>

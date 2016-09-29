@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>demo39</title>
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script type="text/javascript">
+    var app=angular.module("myapp",[]);
+    app.controller("aaa",function aaa($scope){
+
+    });
+    app.directive("myHello",function(){
+        return {
+            restrict : "E",
+            replace : true,
+            transclude : true,
+            template : "<div>hello angular <span ng-transclude ></span></div>"
+            // templateUrl : 
+        };
+    });
+    app.directive("myHi",function(){
+        return {
+            restrict : "E",
+            replace : true,
+            template : "<span>hi angular</span>"
+            // templateUrl : 
+        };
+    });
+</script>
+
+</head>
+<body ng-app = "myapp">
+    <div ng-controller="aaa">
+    <!-- 自定义指令的嵌套 只需要添加transclude : true即可，transclude默认值是false -->
+        <my-hello>
+            <my-hi></my-hi>
+        </my-hello>
+    </div>
+</body>
+</html>
