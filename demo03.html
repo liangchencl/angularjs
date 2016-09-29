@@ -25,10 +25,15 @@ app.controller('aaa', function($scope,$rootScope) {
 // 定时器 $timeout
 // 跟jq里面的 settimeout 用法一样
 // ng-click 点击事件
+// 清除 $timeout.cancel();
 app.controller("bbb",function($scope,$timeout){
 	$scope.na = "hello";
-	$timeout(function(){
+	var timer = null;
+	$timeout.cancel(timer);
+
+	timer = $timeout(function(){
 		$scope.na = "hi";
+		console.log(123);
 	},2000);
 	
 })

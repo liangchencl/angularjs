@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>模拟百度搜索</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var app = angular.module('myapp', []);
+
+app.controller('aaa', function aaa($scope,$http,$timeout) {
+	// var url="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=a&cb=JSON_CALLBACK";
+
+	//$http.get(url).success( function(data) {
+	// 	console.log(data)
+	// });
+	var timer = null;
+	$scope.search = [];
+	$scope.change = function(name){
+
+		// 清除定时器
+		$timeout.cancel(timer);
+		
+		timer = $timeout(function(){
+			$http({
+				method : 'JSONP',
+				url : 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK'
+			}).success(function(data){
+				// console.log(data)
+				$scope.search = data.s; // 通过打印可以看出搜索的结果是存在了data.s里面的
+			});
+		},500)
+
+	}
+
+});
+</script>
+
+</head>
+<body ng-app="myapp">
+	<div ng-controller="aaa">
+	<!-- 在搜索框里面输入了值之后就发送请求，每输入一次就发送一次请求，这样频繁的发送不好，所以用了定时器，快速的输入内容之后再发送请求。 -->
+		<input type="text" ng-model="name" ng-keyup="change(name)" >
+		<input type="button" value="搜索" ng-click="change(name)" >
+		<ul>
+			<li ng-repeat="s in search">{{s}}</li>
+		</ul>
+	</div>
+
+</body>
+</html>
