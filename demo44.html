@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>自定义服务</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var m1 = angular.module('myApp', []);
+/* m1.factory("myService",function(){
+	return {
+		name : "hello",
+		show : function(){
+			return this.name + " angular !";
+		}
+	}
+});
+m1.controller("aaa",["$scope","myService",function($scope,myService){
+	console.log(myService.show())
+}]);
+*/
+// 取两个数之间的随机数
+// m1.factory("myRandoNum",function(){
+// 	return function(num1,num2){
+// 		return Math.random()*(num2-num1)+num1; 
+// 	};
+// });
+// m1.controller("aaa",["$scope","myRandoNum",function($scope,myRandoNum){
+// 	console.log(myRandoNum(6,3))
+// }]);
+
+
+m1.provider("myService",function(){
+	return {
+		name : "hello",
+		$get : function(){
+			return {
+				name : this.name,
+				show : function(){
+					return this.name + " angular !";
+				}
+			}
+		}
+	}
+})
+
+m1.config(["myServiceProvider",function(myServiceProvider){
+	console.log(myServiceProvider.name);
+	myServiceProvider.name = "hi"
+}])
+
+m1.controller("aaa",["$scope","myService",function($scope,myService){
+
+	console.log(myService.show())
+}]);
+</script>
+
+</head>
+<body ng-app="myApp">
+	<div ng-controller="aaa"></div>
+</body>
+</html>
