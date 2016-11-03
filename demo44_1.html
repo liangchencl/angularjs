@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>自定义服务</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+var m1 = angular.module('myApp', []);
+// myService 是自己定义的一个服务
+m1.factory("myService",function(){
+	return {
+		name : "hello",
+		show : function(a,b){
+			return a*b
+		}
+	}
+});
+
+m1.controller("aaa",["$scope","myService",function($scope,myService){
+	console.log(myService.show(2,30));
+	$scope.num1 = 1;
+
+	// 这里是可以实时监听输入框里面的数字变化的，因为 这里的text 是一个方法， 
+	$scope.text = function(){
+		return  myService.show($scope.num1,30)
+	}
+
+	// 这里是不可以实时监听的，因为这里的 text01 是一个变量，在打开页面的时候就执行了，后面不会在更改了。
+	$scope.text01 = myService.show($scope.num1,30)
+	
+}]);
+
+</script>
+
+</head>
+<body ng-app="myApp">
+<div ng-controller="aaa">
+<input type="text" ng-model="num1">
+	<!-- 可以看到这里的写法也是不一样的，第一个是方法，第二个是变量 -->
+	<p>{{text()}}</p>
+	<p>{{text01}}</p>
+</div>
+</body>
+</html>
