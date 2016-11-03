@@ -36,7 +36,7 @@ app.controller('aaa', function aaa($scope , $filter ) {
 </head>
 <body>
 	<div ng-controller="aaa">
-	<input type="text" ng-model="search" placeholder="filter friends..." aria-label="filter friends" >
+	<input type="text" ng-model="search" placeholder="filter friends..." >
 		<ul>
 			<li ng-repeat = "list in original | filter:search as results" >
 				[{{$index + 1}}] {{list.name}} who is {{list.age}} years old.
