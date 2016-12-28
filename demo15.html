@@ -119,15 +119,15 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
                         <li>
                             <span class="counter_con_left">投标金额：</span>
                             <span class="counter_con_right">
-                                <input type="text" class="form-control s_money" ng-model="engineer1.s_money" name="tmoney" ng-pattern="/^\d+$/">元
+                                <input type="text" class="form-control s_money" ng-model="engineer1.s_money" name="tmoney" ng-pattern="/^[1-9]\d{0,}00$/">元
                             </span>
-                            <span class="error" ng-show="form.$dirty && form.tmoney.$invalid">请输入投资金额，只能是整数</span>
+                            <span class="error" ng-show="form.$dirty && form.tmoney.$invalid">请输入投资金额，只能是100的整数倍</span>
                         </li>
                         <li>
                             <span class="counter_con_left">年化收益：</span>
                             <span class="counter_con_right">
-                                <input type="text" class="form-control s_rate" ng-model="engineer1.s_rate" name="srate" ng-pattern="/^\d+(\.\d{1,2})?$/">%
-                                <span class="error" ng-show="form.$dirty && form.srate.$invalid">请输入投标期限，只能大于0的数字</span>
+                                <input type="text" class="form-control s_rate" ng-model="engineer1.s_rate" name="srate" ng-pattern="/^[1-9]\d{0,1}(\.\d{1,2})?$/">%
+                                <span class="error" ng-show="form.$dirty && form.srate.$invalid">请输入年化收益，介于1--100之间</span>
                             </span>
                         </li>
 
@@ -256,6 +256,7 @@ body::-webkit-scrollbar-thumb{border-radius:10px;-webkit-box-shadow:inset 0 0 6p
             }else{
                 temp = $scope.engineer1.s_time/30;
             }
+            console.log($scope.engineer1.s_money)
             $scope.all = computeNum($scope.engineer1.s_money,$scope.engineer1.s_rate,temp);
        };
 

@@ -20,7 +20,7 @@
 
         <input type="text" name="email" ng-model="user.email" required
                ng-pattern="/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/"/>
-        <span class="error" ng-show="form.$dirty && form.name.$invalid">填写格式错误</span>
+        <span class="error" ng-show="form.$dirty && form.email.$invalid">填写格式错误</span>
         <br />
         <input type="text" name="number" ng-model="user.number" ng-pattern="/^\d+$/">
         <span class="error" ng-show="form.$dirty && form.number.$invalid">填写格式错误</span>
