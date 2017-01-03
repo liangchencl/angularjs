@@ -25,24 +25,31 @@ phonecatApp1.controller('PhoneListController', function PhoneListController($sco
       snippet: 'The Next, Next Generation tablet.'
     }
   ];
+  $scope.num = 1;
+  $scope.price = 1;
 }
 
 );
 </script>
 
 </head>
-<body ng-app="phonecatApp11">
-    <div ng-app ng-init="num='1';price='1'">
-    	<p>数量：<input type="number" ng-model="num"></p>
-    	<p>价格：<input type="number" ng-model="price"></p>
-    	<h2>HELLO {{num * price}}</h2>
-    	<h2>总价：<span ng-bind="num * price"></span></h2>
-    </div>
+<body ng-app="phonecatApp11" ng-controller="PhoneListController">
+	<div>
+		<p>数量：<input type="number" ng-model="num"></p>
+		<p>价格：<input type="number" ng-model="price"></p>
+		<h2>HELLO {{num * price}}</h2>
+		<h2>总价：<span ng-bind="num * price"></span></h2>
+	</div>
 	
 	<p>1 + 2 = {{1 + 2}}</p>
-	
 	<div>
-		<ul ng-controller="PhoneListController">
+	<div>
+		<input type="text" ng-model="name">
+		<h2>{{'用户名：' + name }}</h2>
+	</div>
+	</div>
+	<div>
+		<ul>
 			<!-- <li>
 				<span>Nexus S</span>
 				<p>

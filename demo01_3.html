@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo01</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+// $interval(fn,time,num)  第三个参数是限制执行次数，当次数执行完之后就跳出，不再执行 $interval
+// then() 跳出$interval 之后执行的函数
+// then( success,error,notify) 参数 分别是成功之后 失败之后和一直执行  
+// 注意 notify 在$interval 运行的时候也是在执行的
+	angular.module("app",[])
+	.controller("myapp",function($scope,$interval){
+		var timer = $interval(function(){
+			console.log("1");
+			// 如果把 清除定时器写在这里 则只执行一次 $interval  执行第二次的时候会失败，即打印 失败执行
+			// $interval.cancel(timer)
+		},1000,3);
+		timer.then(success,error,notify);
+		function success(){
+			console.log("成功执行")
+		};
+		function error(){
+			console.log("失败执行")
+		};
+		function notify(){
+			console.log("一直执行")
+		};
+		// 清除定时器 是上面的执行完了之后清除
+		timer.cancel = function(){
+			$interval.cancel(timer)
+		}
+
+	})
+</script>
+
+</head>
+<body>
+	<div ng-app="app" ng-controller="myapp">
+		
+	</div>
+</body>
+</html>
