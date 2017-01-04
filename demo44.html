@@ -58,6 +58,10 @@ m1.controller("aaa",["$scope","myService",function($scope,myService){
 }]);
 </script>
 
+
+<!-- 区别 -->
+<!-- factory 不能初始化配置 $config -->
+<!-- provider 可以 -->
 </head>
 <body ng-app="myApp">
 	<div ng-controller="aaa"></div>
