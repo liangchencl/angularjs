@@ -25,11 +25,15 @@ app.directive("myDrag",function(){
         restrict : "A",
         replace : true,
         link : function(scope,element,attr){
-            // console.log(element);
+            console.log(attr);
             console.log(attr.myDrag)  // 下面html里面给my-Drag 赋值了，这里的attr就可以取到所赋的值，但是这里取到的值是一个字符串
             console.log(typeof(attr.myDrag));
 
+            // angular.equals() 是angularjs 里面的一个方法 用于比较两个对象、值或表达式是否相等
             attr.myDrag = angular.equals(attr.myDrag,"true");  //现在转换成了布尔值了 equals() 比较两个值是否相等
+            // 这里有几个思路可以让 attr.myDrag 的值是布尔的 true  
+            // attr.myDrag = Boolean("true")  返回的是布尔值true
+            // 判断 if(attr.myDrag == attr.myDrag){attr.myDrag=true}  这样也可以返回 布尔值 true  
             console.log(attr.myDrag)
 
             //下面的方法也可以让attr.myDrag变成布尔值

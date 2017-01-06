@@ -32,7 +32,7 @@
 </head>
 <body ng-app = "myapp">
     <div ng-controller="aaa">
-    <!-- 自定义指令的嵌套 只需要添加transclude : true即可，transclude默认值是false -->
+    <!-- 自定义指令的嵌套 只需要添加transclude : true即可，transclude默认值是false 并且<span ng-transclude ></span> 这句也不能掉 -->
         <my-hello>
             <my-hi></my-hi>
         </my-hello>

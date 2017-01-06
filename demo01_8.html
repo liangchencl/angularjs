@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>ng-repeat</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+
+<script>
+var app = angular.module("myApp", []);
+app.directive('hello',function(){
+    return {
+        restrict : "E",
+        replace : true,
+        transclude : true,
+        template : "<div>hello angular <span ng-transclude ></span></div>"  // 注意 <span ng-transclude ></span>  这句话不能掉
+    };
+});
+app.controller("myCtrl", function($scope) {
+    $scope.things = [1,2,3,4,5,6]
+});
+
+</script>
+
+</head>
+<body ng-app="myApp">
+	<div ng-controller="myCtrl">
+        <div>
+            <hello>
+                <span>这是在自定义标签里面添加了内容，通过设置transclude : true, 来添加的，并且template里面的span标签也不能掉的</span>
+            </hello>
+        </div>
+		<div ng-repeat="thing in things">
+            {{thing}}.<hello></hello>
+        </div>
+	</div>
+</body>
+</html>
