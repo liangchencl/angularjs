@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>service</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+angular.module('app',[])
+.value('realname','angularjs')  //  是可以改变的
+.value('realname','javascript')
+.constant('constanttest', 'this is constanttest')  // 常量  不可改变
+.constant('constanttest', 'this is constanttest3')  
+.factory('myfactory',function(){
+	return {
+		mag : "hello",
+		name : "hi"
+	}
+})
+.service('user',function(){
+	this.firstName = "上官";
+	this.lastName = "飞燕";
+	this.getName = function(){
+		return this.firstName + this.lastName;
+	}
+})
+// 通用的  转换成16进制 
+.service('hexa',function(){
+	this.myfun = function(x){
+		return x.toString(16);
+	}
+})
+// 自定义过滤器
+.filter('myFormat',function(hexa){
+	return function(x){
+		return hexa.myfun(x)
+	}
+})
+
+// .filter('myFormat',['hexa', function(hexa) {
+//         return function(x) {
+//             return hexa.myfun(x);
+//         };
+//     }])
+
+.controller('myapp',function($scope,realname,constanttest,myfactory,user,hexa){
+	$scope.msg = "hello";
+	$scope.name = realname; // javascript
+	$scope.text1 = constanttest;  // this is constanttest
+	$scope.mfactory = myfactory;
+	$scope.uname = user.getName();
+	$scope.hex = hexa.myfun(255)
+})
+</script>
+
+</head>
+<body>
+	<div ng-app="app" ng-controller="myapp">
+		<h1>{{name}}</h1>
+		<h3>{{text1}}</h3>
+		<h2>{{mfactory.mag}}</h2>
+		<h4>{{uname}}</h4>
+		<h4>{{hex}}</h4>
+		<h4>{{255 | myFormat}}</h4>
+	</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>service</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<style type="text/css">
+	.div {color: #f00;font-size: 20px;}
+
+	form {width: 250px;padding: 10px;border:1px solid #ccc;}
+	.input input {width: 90%;padding: 5px;}
+	select {width: 95%;padding: 5px;}
+	.button {background: #4aafe2;width: 60%;margin-left: 20%;padding: 6px;border:none;color: #fff;}
+</style>
+<script>
+// ng-show  ng-hide  ng-src ng-class  ng-href  ng-if ng-submit
+angular.module('app',[])
+
+.controller('myFirst',function($scope){
+
+	$scope.showicon = true;
+	$scope.text = "测试一段文字";
+	$scope.user = {
+		uname:'',
+		psd:'',
+		zw:'',
+		sex:'',
+		aihao:{}
+	};
+	$scope.tijiao = function(u){
+		console.log(u)
+	}
+})
+
+
+</script>
+
+</head>
+<body ng-app="app">
+	<div ng-controller="myFirst">
+		<!-- 如果 showicon 为真就加div这个类，如果为假就加col这个类 -->
+		<h2 ng-class="{true:'div',false:'col'}[showicon]">{{text}}</h2>
+		
+		<!-- 如果showicon为真就加div类，如果为假，则不加 -->
+		<h2 ng-class="{'div':showicon}">{{text}}</h2>
+
+		<form name="f" ng-submit="tijiao(user)">
+			<p class="input"><input type="text" name="uname" ng-model="user.uname" placeholder="用户名" required></p>
+			<p class="input"><input type="password" name="psd" ng-model="user.psd" placeholder="密码"></p>
+			<p>职位：</p>
+			<p>
+				<select name="zw" ng-model="user.zw" id="">
+					<option value="">--请选择--</option>
+					<option value="0">前端工程师</option>
+					<option value="1">php开发</option>
+					<option value="2">java开发</option>
+				</select>
+			</p>
+			<p>性别：
+				<input type="radio" name="sex" value="nan" ng-model="user.sex" ng-checked="user.sex=='1'" >男  
+				<input type="radio" name="sex" value="nv" ng-model="user.sex" ng-checked="user.sex=='0'" >女 
+			</p>
+			<p>爱好：
+				<input type="checkbox" name="aihao" ng-model="user.aihao.lan" ng-true-value="'lan'" ng-false-value="">篮球
+				<input type="checkbox" name="aihao" ng-model="user.aihao.zu" value="zu" ng-true-value="'zu'" ng-false-value="">足球
+				<input type="checkbox" name="aihao" ng-model="user.aihao.pai" value="pai" ng-true-value="'pai'" ng-false-value="">排球
+			</p>
+			<button type="sublime" class="button" ng-disabled="f.$invalid">提交</button>
+		</form>
+	</div>
+</body>
+</html>

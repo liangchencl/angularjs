@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>service</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://apps.bdimg.com/libs/angular.js/1.4.6/angular.min.js"></script>
+<script>
+angular.module('app',[])
+.factory('myfactory',function(){
+	return {
+		msg : "我是从factory里面来的",
+		shopingCar : [1,2,3]
+		// 应用在类似购物车的页面，在一个页面里面对一件商品做了增加或者减少之后在另一个页面里面也相应的做了改变
+	}
+})
+
+.controller('myFirst',function($scope,myfactory){
+	// $scope.msg = "我是第一个";
+	$scope.data = myfactory;
+})
+
+.controller('mySecond',function($scope,myfactory){
+	// $scope.msg = "我是第二个";
+	$scope.data = myfactory;
+})
+</script>
+
+</head>
+<body ng-app="app">
+	<div ng-controller="myFirst">
+		<input type="text" ng-model="data.msg">
+		<h2>{{data.msg}}</h2>
+	</div>
+	<div ng-controller="mySecond">
+		<input type="text" ng-model="data.msg">
+		<h2>{{data.msg}}</h2>
+	</div>
+</body>
+</html>
