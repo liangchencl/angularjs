@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<canvas id="canvas" width="500" height="500"></canvas>
+	</body>
+	<script type="text/javascript">
+		var canvas=document.getElementById("canvas");
+		var context=canvas.getContext("2d");
+		//var context = wx.createContext();
+	    var array = [20,30,40,40];
+	    var colors = ["#ff0000","#fff000","#0000ff","#4aafe2"];
+	    var total = 0;
+	    for(var i=0;i<array.length;i++){
+	      total +=array[i];
+	    };
+//	    console.log(total);  // 130
+//	    // 圆心 半径
+	    var point = {x:100,y:75};
+	    var radius = 60;
+	    var start =0;
+	    var end=array[0]/total*2*Math.PI;
+	    context.lineWidth=5;
+	    for(var i =0;i<4;i++){
+	    	console.log(start);
+	    	//context.restore();
+	      	context.beginPath();
+	      	context.arc(point.x,point.y,radius,start,end)
+	      	context.strokeStyle=colors[i];
+	      	context.stroke();
+//	      	/context.save();
+	      	start=end;
+	      	end+=array[i+1]/total*2*Math.PI
+		}
+//	      console.log(start)
+//	      start += array[i]/total*2*Math.PI;
+//	      context.setStrokeStyle(colors[i]);
+//	      context.arc(point.x,point.y,radius,start,array[i]/total*2*Math.PI)
+//	      // console.log(start)      
+//	      context.setLineWidth(5)
+	      
+	
+	      // context.lineTo(point.x,point.y);
+	     
+	      // context.setFillStyle('white')
+	      // context.fill();
+	</script>
+</html>
